@@ -1,0 +1,29 @@
+﻿@model UGE4.DbInfrastructure.Book
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Book</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SubjectID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SubjectID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.BookName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.BookName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.BookID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
