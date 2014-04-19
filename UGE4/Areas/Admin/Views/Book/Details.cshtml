@@ -1,4 +1,4 @@
-﻿@model UGE4.DbInfrastructure.Book
+﻿@model UGE4.Models.Book
 
 @{
     ViewBag.Title = "Details";
@@ -10,10 +10,10 @@
     <legend>Book</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.SubjectID)
+         @Html.DisplayNameFor(model => model.Subject.SubjectName)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.SubjectID)
+        @Html.DisplayFor(model => model.Subject.SubjectName)
     </div>
 
     <div class="display-label">

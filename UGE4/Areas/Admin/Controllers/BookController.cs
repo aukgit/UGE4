@@ -5,20 +5,21 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using UGE4.DbInfrastructure;
+using UGE4.Models;
 
 namespace UGE4.Areas.Admin.Controllers
 {
     public class BookController : Controller
     {
-        private UGE2Entities db = new UGE2Entities();
+        private Entities db = new Entities();
 
         //
         // GET: /Admin/Book/
 
         public ActionResult Index()
         {
-            return View(db.Books.ToList());
+            var books = db.Books.Include(b => b.Subject);
+            return View(books.ToList());
         }
 
         //
@@ -39,6 +40,7 @@ namespace UGE4.Areas.Admin.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.SubjectID = new SelectList(db.Subjects, "SubjectID", "SubjectName");
             return View();
         }
 
@@ -55,6 +57,7 @@ namespace UGE4.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.SubjectID = new SelectList(db.Subjects, "SubjectID", "SubjectName", book.SubjectID);
             return View(book);
         }
 
@@ -68,6 +71,7 @@ namespace UGE4.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.SubjectID = new SelectList(db.Subjects, "SubjectID", "SubjectName", book.SubjectID);
             return View(book);
         }
 
@@ -83,6 +87,7 @@ namespace UGE4.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.SubjectID = new SelectList(db.Subjects, "SubjectID", "SubjectName", book.SubjectID);
             return View(book);
         }
 

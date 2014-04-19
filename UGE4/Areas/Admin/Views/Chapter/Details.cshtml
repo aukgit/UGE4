@@ -1,0 +1,43 @@
+﻿@model UGE4.Models.Chapter
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Chapter</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Book.BookName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Book.BookName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TopicName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TopicName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TotalArticles)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TotalArticles)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MasterArticleID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MasterArticleID)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ChapterID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

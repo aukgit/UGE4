@@ -1,0 +1,22 @@
+﻿@model UGE4.Models.Subject
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Subject</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SubjectName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SubjectName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.SubjectID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
