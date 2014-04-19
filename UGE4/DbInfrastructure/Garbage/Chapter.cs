@@ -23,7 +23,6 @@ namespace UGE4.DbInfrastructure
         public int ChapterID { get; set; }
         public int BookID { get; set; }
         public string TopicName { get; set; }
-       
         public int TotalArticles { get; set; }
         public Nullable<long> MasterArticleID { get; set; }
     

@@ -9,117 +9,160 @@ using UGE4.DbInfrastructure;
 
 namespace UGE4.Areas.Admin.Controllers
 {
-    public class MCQController : Controller
-    {
-        private UGEContext db = new UGEContext();
+	public class MCQController : Controller
+	{
+		readonly UGEContext db = new UGEContext();
+		
+		void GenerateDropdowns(MCQ mcq = null){
+			var articles = db.Articles.Select(m => new { ArticleID = m.ArticleID , ArticleName = m.ArticleName} ).ToList();
 
-        //
-        // GET: /Admin/MCQ/
+			if(mcq == null) {	
+				ViewBag.ArticleID = new SelectList(articles, "ArticleID", "ArticleName");
+			} else {
+				ViewBag.ArticleID = new SelectList(articles, "ArticleID", "ArticleName", mcq.ArticleID);
+			} 
+		}
 
-        public ActionResult Index()
-        {
-            var mcqs = db.MCQs.Include(m => m.Article);
-            return View(mcqs.ToList());
-        }
+		
+		public ActionResult Index() {
+			bool result = ViewTapping(ViewStates.Index);
 
-        //
-        // GET: /Admin/MCQ/Details/5
+			var mcqs = db.MCQs.Include(m => m.Article).ToList();
+			return View(mcqs);
+		}
 
-        public ActionResult Details(int id = 0)
-        {
-            MCQ mcq = db.MCQs.Find(id);
-            if (mcq == null)
-            {
-                return HttpNotFound();
-            }
-            return View(mcq);
-        }
+		public ActionResult Create() {
+			GenerateDropdowns();
+			bool result = ViewTapping(ViewStates.Create);
+			return View();
+		}
 
-        //
-        // GET: /Admin/MCQ/Create
+		[HttpPost]
+		public ActionResult Create(MCQ mcq)
+		{
+			bool result = ViewTapping(ViewStates.CreatePost,mcq);
+			
+			if (ModelState.IsValid)
+			{
+				db.MCQs.Add(mcq);
+				bool state = SaveDatabase(ViewStates.Create, mcq);
+				return RedirectToActionPermanent("Index");
+			}
 
-        public ActionResult Create()
-        {
-            ViewBag.ArticleID = new SelectList(db.Articles, "ArticleID", "ArticleName");
-            return View();
-        }
+			GenerateDropdowns(mcq);
+			return View(mcq);
+		}
 
-        //
-        // POST: /Admin/MCQ/Create
+		public ActionResult Edit(int id = 0)
+		{
+			var mcq = db.MCQs.Find(id);
+			if (mcq == null)
+			{
+				return HttpNotFound();
+			}
+			GenerateDropdowns(mcq);
+			bool result = ViewTapping(ViewStates.Edit,mcq);
+			return View(mcq);
+		}
 
-        [HttpPost]
-        public ActionResult Create(MCQ mcq)
-        {
-            if (ModelState.IsValid)
-            {
-                db.MCQs.Add(mcq);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+		[HttpPost]
+		public ActionResult Edit(MCQ mcq)
+		{
+			bool result = ViewTapping(ViewStates.EditPost,mcq);
 
-            ViewBag.ArticleID = new SelectList(db.Articles, "ArticleID", "ArticleName", mcq.ArticleID);
-            return View(mcq);
-        }
+			if (ModelState.IsValid)
+			{
+				db.Entry(mcq).State = EntityState.Modified;
+				bool state = SaveDatabase(ViewStates.Edit, mcq);
+				return RedirectToActionPermanent("Index");
+			}
+			GenerateDropdowns(mcq);
+			return View(mcq);
+		}
 
-        //
-        // GET: /Admin/MCQ/Edit/5
+		[ActionName("Delete")]
+		public ActionResult DeleteConfirmed(int id)
+		{
+			var mcq = db.MCQs.Find(id);
+			if(mcq != null){
+				bool result = ViewTapping(ViewStates.DeletePost,mcq);
+				db.MCQs.Remove(mcq);
+			}
+			
+			bool state = SaveDatabase(ViewStates.Delete, mcq);
+			return RedirectToActionPermanent("Index");
+		}		
+		
+		public ActionResult Details(int id = 0)
+		{
 
-        public ActionResult Edit(int id = 0)
-        {
-            MCQ mcq = db.MCQs.Find(id);
-            if (mcq == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ArticleID = new SelectList(db.Articles, "ArticleID", "ArticleName", mcq.ArticleID);
-            return View(mcq);
-        }
+			var mcq = db.MCQs.Find(id);
+	
+			if (mcq == null)
+			{
+				return HttpNotFound();
+			}
+			GenerateDropdowns(mcq);
+			bool result = ViewTapping(ViewStates.Details, mcq);
+			return View(mcq);
+		}
 
-        //
-        // POST: /Admin/MCQ/Edit/5
+		bool ViewTapping(ViewStates view, MCQ mcq = null){
+			switch (view){
+				case ViewStates.Index:
+					break;
+				case ViewStates.Create:
+					break;
+				case ViewStates.CreatePost:
+					break;
+				case ViewStates.Edit:
+					break;
+				case ViewStates.EditPost:
+					break;
+				case ViewStates.Delete:
+					break;
+			}
+			return true;
+		}
 
-        [HttpPost]
-        public ActionResult Edit(MCQ mcq)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(mcq).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ArticleID = new SelectList(db.Articles, "ArticleID", "ArticleName", mcq.ArticleID);
-            return View(mcq);
-        }
+		enum ViewStates{
+			Index,
+			Create,
+			CreatePost,
+			Edit,
+			EditPost,
+			Details,
+			Delete,
+			DeletePost
+		}
 
-        //
-        // GET: /Admin/MCQ/Delete/5
+		bool SaveDatabase(ViewStates view, MCQ mcq = null){
+			// working those at HttpPost time.
+			switch (view){
+				case ViewStates.Create:
+					break;
+				case ViewStates.Edit:
+					break;
+				case ViewStates.Delete:
+					break;
+			}
 
-        public ActionResult Delete(int id = 0)
-        {
-            MCQ mcq = db.MCQs.Find(id);
-            if (mcq == null)
-            {
-                return HttpNotFound();
-            }
-            return View(mcq);
-        }
+			try	{
+				var changes = db.SaveChanges();
+				if(changes > 0){
+					return true;
+				}
+			} catch (Exception ex){
+				 throw new Exception("Message : " + ex.Message.ToString() + " Inner Message : " + ex.InnerException.Message.ToString());
+			}
+			return false;
+		}
 
-        //
-        // POST: /Admin/MCQ/Delete/5
 
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            MCQ mcq = db.MCQs.Find(id);
-            db.MCQs.Remove(mcq);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
-    }
+		protected override void Dispose(bool disposing)
+		{
+			db.Dispose();
+			base.Dispose(disposing);
+		}
+	}
 }

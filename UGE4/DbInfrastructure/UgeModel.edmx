@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="UGEContextEntities.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="UGEContextEntities.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="UGEContextEntitiesStoreContainer">
           <EntitySet Name="Article" EntityType="UGEContextEntities.Store.Article" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ArticleMistake" EntityType="UGEContextEntities.Store.ArticleMistake" store:Type="Tables" Schema="dbo" />
@@ -23,6 +23,10 @@
           <EntitySet Name="UserProfile" EntityType="UGEContextEntities.Store.UserProfile" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="WatchedReference" EntityType="UGEContextEntities.Store.WatchedReference" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="WishList" EntityType="UGEContextEntities.Store.WishList" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Article_Chapter" Association="UGEContextEntities.Store.FK_Article_Chapter">
+            <End Role="Chapter" EntitySet="Chapter" />
+            <End Role="Article" EntitySet="Article" />
+          </AssociationSet>
           <AssociationSet Name="FK_ArticleMistake_Article" Association="UGEContextEntities.Store.FK_ArticleMistake_Article">
             <End Role="Article" EntitySet="Article" />
             <End Role="ArticleMistake" EntitySet="ArticleMistake" />
@@ -156,7 +160,7 @@
           <Property Name="BookID" Type="int" Nullable="false" />
           <Property Name="TopicName" Type="varchar" Nullable="false" MaxLength="150" />
           <Property Name="TotalArticles" Type="int" Nullable="false" />
-          <Property Name="MasterArticleID" Type="bigint" Nullable="false" />
+          <Property Name="MasterArticleID" Type="bigint" />
         </EntityType>
         <EntityType Name="Choice">
           <Key>
@@ -265,6 +269,18 @@
           <Property Name="Dated" Type="date" Nullable="false" />
           <Property Name="LastNotified" Type="date" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Article_Chapter">
+          <End Role="Chapter" Type="UGEContextEntities.Store.Chapter" Multiplicity="1" />
+          <End Role="Article" Type="UGEContextEntities.Store.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chapter">
+              <PropertyRef Name="ChapterID" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="ChapterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ArticleMistake_Article">
           <End Role="Article" Type="UGEContextEntities.Store.Article" Multiplicity="1" />
           <End Role="ArticleMistake" Type="UGEContextEntities.Store.ArticleMistake" Multiplicity="*" />
@@ -326,7 +342,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Chapter_Article">
-          <End Role="Article" Type="UGEContextEntities.Store.Article" Multiplicity="1" />
+          <End Role="Article" Type="UGEContextEntities.Store.Article" Multiplicity="0..1" />
           <End Role="Chapter" Type="UGEContextEntities.Store.Chapter" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Article">
@@ -517,8 +533,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="UGEContextEntities" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -540,6 +555,10 @@
           <EntitySet Name="UserProfiles" EntityType="UGEContextEntities.UserProfile" />
           <EntitySet Name="WatchedReferences" EntityType="UGEContextEntities.WatchedReference" />
           <EntitySet Name="WishLists" EntityType="UGEContextEntities.WishList" />
+          <AssociationSet Name="FK_Article_Chapter" Association="UGEContextEntities.FK_Article_Chapter">
+            <End Role="Chapter" EntitySet="Chapters" />
+            <End Role="Article" EntitySet="Articles" />
+          </AssociationSet>
           <AssociationSet Name="FK_ArticleMistake_Article" Association="UGEContextEntities.FK_ArticleMistake_Article">
             <End Role="Article" EntitySet="Articles" />
             <End Role="ArticleMistake" EntitySet="ArticleMistakes" />
@@ -629,16 +648,17 @@
           <Key>
             <PropertyRef Name="ArticleID" />
           </Key>
-          <Property Name="ArticleID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ArticleName" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="800" Unicode="false" FixedLength="false" />
-          <Property Name="PreviousArticleID" Type="Int64" />
-          <Property Name="NextArticleID" Type="Int64" />
-          <Property Name="ChapterID" Type="Int32" Nullable="false" />
-          <Property Name="VideoLink" Type="String" Nullable="false" MaxLength="800" Unicode="false" FixedLength="false" />
-          <Property Name="Height" Type="Int16" Nullable="false" />
-          <Property Name="Width" Type="Int16" Nullable="false" />
-          <Property Name="AvgRating" Type="Double" Nullable="false" />
+          <Property Type="Int64" Name="ArticleID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ArticleName" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="800" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="PreviousArticleID" />
+          <Property Type="Int64" Name="NextArticleID" />
+          <Property Type="Int32" Name="ChapterID" Nullable="false" />
+          <Property Type="String" Name="VideoLink" Nullable="false" MaxLength="800" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="Height" Nullable="false" />
+          <Property Type="Int16" Name="Width" Nullable="false" />
+          <Property Type="Double" Name="AvgRating" Nullable="false" />
+          <NavigationProperty Name="Chapter" Relationship="UGEContextEntities.FK_Article_Chapter" FromRole="Article" ToRole="Chapter" />
           <NavigationProperty Name="ArticleMistakes" Relationship="UGEContextEntities.FK_ArticleMistake_Article" FromRole="Article" ToRole="ArticleMistake" />
           <NavigationProperty Name="Bookmarks" Relationship="UGEContextEntities.FK_Bookmark_Article" FromRole="Article" ToRole="Bookmark" />
           <NavigationProperty Name="Chapters" Relationship="UGEContextEntities.FK_Chapter_Article" FromRole="Article" ToRole="Chapter" />
@@ -653,10 +673,10 @@
           <Key>
             <PropertyRef Name="ArticleMistakeID" />
           </Key>
-          <Property Name="ArticleMistakeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="ArticleID" Type="Int64" Nullable="false" />
-          <Property Name="SubmitedDated" Type="DateTime" Nullable="false" />
+          <Property Type="Int64" Name="ArticleMistakeID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="Int64" Name="ArticleID" Nullable="false" />
+          <Property Type="DateTime" Name="SubmitedDated" Nullable="false" />
           <NavigationProperty Name="Article" Relationship="UGEContextEntities.FK_ArticleMistake_Article" FromRole="ArticleMistake" ToRole="Article" />
           <NavigationProperty Name="User" Relationship="UGEContextEntities.FK_ArticleMistake_User" FromRole="ArticleMistake" ToRole="User" />
           <NavigationProperty Name="ReplyAgainstMistakes" Relationship="UGEContextEntities.FK_ReplyAgainstMistake_ArticleMistake" FromRole="ArticleMistake" ToRole="ReplyAgainstMistake" />
@@ -665,9 +685,9 @@
           <Key>
             <PropertyRef Name="BookID" />
           </Key>
-          <Property Name="BookID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SubjectID" Type="Byte" Nullable="false" />
-          <Property Name="BookName" Type="String" Nullable="false" MaxLength="80" Unicode="false" FixedLength="false" />
+          <Property Type="Int32" Name="BookID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Byte" Name="SubjectID" Nullable="false" />
+          <Property Type="String" Name="BookName" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Subject" Relationship="UGEContextEntities.FK_Book_Subject" FromRole="Book" ToRole="Subject" />
           <NavigationProperty Name="Chapters" Relationship="UGEContextEntities.FK_Chapter_Book" FromRole="Book" ToRole="Chapter" />
         </EntityType>
@@ -675,9 +695,9 @@
           <Key>
             <PropertyRef Name="BookmarkID" />
           </Key>
-          <Property Name="BookmarkID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="ArticleID" Type="Int64" Nullable="false" />
+          <Property Type="Int64" Name="BookmarkID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="Int64" Name="ArticleID" Nullable="false" />
           <NavigationProperty Name="Article" Relationship="UGEContextEntities.FK_Bookmark_Article" FromRole="Bookmark" ToRole="Article" />
           <NavigationProperty Name="User" Relationship="UGEContextEntities.FK_Bookmark_User" FromRole="Bookmark" ToRole="User" />
         </EntityType>
@@ -685,11 +705,12 @@
           <Key>
             <PropertyRef Name="ChapterID" />
           </Key>
-          <Property Name="ChapterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BookID" Type="Int32" Nullable="false" />
-          <Property Name="TopicName" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
-          <Property Name="TotalArticles" Type="Int32" Nullable="false" />
-          <Property Name="MasterArticleID" Type="Int64" Nullable="false" />
+          <Property Type="Int32" Name="ChapterID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="BookID" Nullable="false" />
+          <Property Type="String" Name="TopicName" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="TotalArticles" Nullable="false" />
+          <Property Type="Int64" Name="MasterArticleID" />
+          <NavigationProperty Name="Articles" Relationship="UGEContextEntities.FK_Article_Chapter" FromRole="Chapter" ToRole="Article" />
           <NavigationProperty Name="Article" Relationship="UGEContextEntities.FK_Chapter_Article" FromRole="Chapter" ToRole="Article" />
           <NavigationProperty Name="Book" Relationship="UGEContextEntities.FK_Chapter_Book" FromRole="Chapter" ToRole="Book" />
           <NavigationProperty Name="LinksToDisplays" Relationship="UGEContextEntities.FK_LinksToDisplay_Chapter" FromRole="Chapter" ToRole="LinksToDisplay" />
@@ -698,18 +719,18 @@
           <Key>
             <PropertyRef Name="ChoiceID" />
           </Key>
-          <Property Name="ChoiceID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="QuestionID" Type="Int64" Nullable="false" />
-          <Property Name="ChoiceDisplay" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Type="Int64" Name="ChoiceID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="QuestionID" Nullable="false" />
+          <Property Type="String" Name="ChoiceDisplay" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Question" Relationship="UGEContextEntities.FK_Choice_Question" FromRole="Choice" ToRole="Question" />
         </EntityType>
         <EntityType Name="LinksToDisplay">
           <Key>
             <PropertyRef Name="LinksToDisplayID" />
           </Key>
-          <Property Name="LinksToDisplayID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ArticleID" Type="Int64" Nullable="false" />
-          <Property Name="ChapterID" Type="Int32" Nullable="false" />
+          <Property Type="Int64" Name="LinksToDisplayID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="ArticleID" Nullable="false" />
+          <Property Type="Int32" Name="ChapterID" Nullable="false" />
           <NavigationProperty Name="Article" Relationship="UGEContextEntities.FK_LinksToDisplay_Article" FromRole="LinksToDisplay" ToRole="Article" />
           <NavigationProperty Name="Chapter" Relationship="UGEContextEntities.FK_LinksToDisplay_Chapter" FromRole="LinksToDisplay" ToRole="Chapter" />
         </EntityType>
@@ -717,11 +738,11 @@
           <Key>
             <PropertyRef Name="MCQID" />
           </Key>
-          <Property Name="MCQID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Duration" Type="Int16" Nullable="false" />
-          <Property Name="ArticleID" Type="Int64" Nullable="false" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
-          <Property Name="DisplayQuestion" Type="Int32" Nullable="false" />
+          <Property Type="Int32" Name="MCQID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int16" Name="Duration" Nullable="false" />
+          <Property Type="Int64" Name="ArticleID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="DisplayQuestion" Nullable="false" />
           <NavigationProperty Name="Article" Relationship="UGEContextEntities.FK_MCQ_Article" FromRole="MCQ" ToRole="Article" />
           <NavigationProperty Name="Questions" Relationship="UGEContextEntities.FK_Question_MCQ" FromRole="MCQ" ToRole="Question" />
         </EntityType>
@@ -729,11 +750,11 @@
           <Key>
             <PropertyRef Name="QuestionID" />
           </Key>
-          <Property Name="QuestionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Hint" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-          <Property Name="AnswerChoiceID" Type="Int64" Nullable="false" />
-          <Property Name="QuestionDisplay" Type="String" Nullable="false" MaxLength="800" Unicode="false" FixedLength="false" />
-          <Property Name="MCQID" Type="Int32" Nullable="false" />
+          <Property Type="Int64" Name="QuestionID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Hint" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="AnswerChoiceID" Nullable="false" />
+          <Property Type="String" Name="QuestionDisplay" Nullable="false" MaxLength="800" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="MCQID" Nullable="false" />
           <NavigationProperty Name="Choices" Relationship="UGEContextEntities.FK_Choice_Question" FromRole="Question" ToRole="Choice" />
           <NavigationProperty Name="MCQ" Relationship="UGEContextEntities.FK_Question_MCQ" FromRole="Question" ToRole="MCQ" />
         </EntityType>
@@ -741,13 +762,13 @@
           <Key>
             <PropertyRef Name="RatingID" />
           </Key>
-          <Property Name="RatingID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ArticleID" Type="Int64" Nullable="false" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="VideoQualtiy" Type="Byte" Nullable="false" />
-          <Property Name="TechingTechnique" Type="Byte" Nullable="false" />
-          <Property Name="Mateials" Type="Byte" Nullable="false" />
-          <Property Name="AvgRating" Type="Double" Nullable="false" />
+          <Property Type="Int64" Name="RatingID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="ArticleID" Nullable="false" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="Byte" Name="VideoQualtiy" Nullable="false" />
+          <Property Type="Byte" Name="TechingTechnique" Nullable="false" />
+          <Property Type="Byte" Name="Mateials" Nullable="false" />
+          <Property Type="Double" Name="AvgRating" Nullable="false" />
           <NavigationProperty Name="Article" Relationship="UGEContextEntities.FK_Rating_Article" FromRole="Rating" ToRole="Article" />
           <NavigationProperty Name="User" Relationship="UGEContextEntities.FK_Rating_User" FromRole="Rating" ToRole="User" />
         </EntityType>
@@ -755,11 +776,11 @@
           <Key>
             <PropertyRef Name="ReplyAgainstMistakeID" />
           </Key>
-          <Property Name="ReplyAgainstMistakeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ArticleMistakeID" Type="Int64" Nullable="false" />
-          <Property Name="RepliedByWhomID" Type="Int32" Nullable="false" />
-          <Property Name="Reply" Type="String" Nullable="false" MaxLength="800" Unicode="false" FixedLength="false" />
-          <Property Name="LinkedReplyMistakeID" Type="Int64" Nullable="false" />
+          <Property Type="Int64" Name="ReplyAgainstMistakeID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="ArticleMistakeID" Nullable="false" />
+          <Property Type="Int32" Name="RepliedByWhomID" Nullable="false" />
+          <Property Type="String" Name="Reply" Nullable="false" MaxLength="800" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="LinkedReplyMistakeID" Nullable="false" />
           <NavigationProperty Name="ArticleMistake" Relationship="UGEContextEntities.FK_ReplyAgainstMistake_ArticleMistake" FromRole="ReplyAgainstMistake" ToRole="ArticleMistake" />
           <NavigationProperty Name="ReplyAgainstMistake1" Relationship="UGEContextEntities.FK_ReplyAgainstMistake_ReplyAgainstMistake" FromRole="ReplyAgainstMistake" ToRole="ReplyAgainstMistake1" />
           <NavigationProperty Name="ReplyAgainstMistake2" Relationship="UGEContextEntities.FK_ReplyAgainstMistake_ReplyAgainstMistake" FromRole="ReplyAgainstMistake1" ToRole="ReplyAgainstMistake" />
@@ -769,26 +790,26 @@
           <Key>
             <PropertyRef Name="SubjectID" />
           </Key>
-          <Property Name="SubjectID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SubjectName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Type="Byte" Name="SubjectID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Books" Relationship="UGEContextEntities.FK_Book_Subject" FromRole="Subject" ToRole="Book" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="principal_id" Nullable="false" />
+          <Property Type="Int32" Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="version" />
+          <Property Type="Binary" Name="definition" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LogName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Type="Int32" Name="UserID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="LogName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ArticleMistakes" Relationship="UGEContextEntities.FK_ArticleMistake_User" FromRole="User" ToRole="ArticleMistake" />
           <NavigationProperty Name="Bookmarks" Relationship="UGEContextEntities.FK_Bookmark_User" FromRole="User" ToRole="Bookmark" />
           <NavigationProperty Name="Ratings" Relationship="UGEContextEntities.FK_Rating_User" FromRole="User" ToRole="Rating" />
@@ -799,16 +820,16 @@
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="56" Unicode="true" FixedLength="false" />
+          <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="WatchedReference">
           <Key>
             <PropertyRef Name="WatchedReferenceID" />
           </Key>
-          <Property Name="WatchedReferenceID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WhichFromArticleID" Type="Int64" Nullable="false" />
-          <Property Name="WhichToArticleID" Type="Int64" Nullable="false" />
+          <Property Type="Int64" Name="WatchedReferenceID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="WhichFromArticleID" Nullable="false" />
+          <Property Type="Int64" Name="WhichToArticleID" Nullable="false" />
           <NavigationProperty Name="Article" Relationship="UGEContextEntities.FK_WatchedReference_Article" FromRole="WatchedReference" ToRole="Article" />
           <NavigationProperty Name="Article1" Relationship="UGEContextEntities.FK_WatchedReference_Article1" FromRole="WatchedReference" ToRole="Article" />
         </EntityType>
@@ -816,17 +837,29 @@
           <Key>
             <PropertyRef Name="WishListID" />
           </Key>
-          <Property Name="WishListID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="ArticleID" Type="Int64" Nullable="false" />
-          <Property Name="Dated" Type="DateTime" Nullable="false" />
-          <Property Name="LastNotified" Type="DateTime" Nullable="false" />
+          <Property Type="Int64" Name="WishListID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="Int64" Name="ArticleID" Nullable="false" />
+          <Property Type="DateTime" Name="Dated" Nullable="false" />
+          <Property Type="DateTime" Name="LastNotified" Nullable="false" />
           <NavigationProperty Name="Article" Relationship="UGEContextEntities.FK_WishList_Article" FromRole="WishList" ToRole="Article" />
           <NavigationProperty Name="User" Relationship="UGEContextEntities.FK_WishList_User" FromRole="WishList" ToRole="User" />
         </EntityType>
+        <Association Name="FK_Article_Chapter">
+          <End Type="UGEContextEntities.Chapter" Role="Chapter" Multiplicity="1" />
+          <End Type="UGEContextEntities.Article" Role="Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chapter">
+              <PropertyRef Name="ChapterID" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="ChapterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ArticleMistake_Article">
-          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
-          <End Role="ArticleMistake" Type="UGEContextEntities.ArticleMistake" Multiplicity="*" />
+          <End Type="UGEContextEntities.Article" Role="Article" Multiplicity="1" />
+          <End Type="UGEContextEntities.ArticleMistake" Role="ArticleMistake" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Article">
               <PropertyRef Name="ArticleID" />
@@ -837,8 +870,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Bookmark_Article">
-          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
-          <End Role="Bookmark" Type="UGEContextEntities.Bookmark" Multiplicity="*" />
+          <End Type="UGEContextEntities.Article" Role="Article" Multiplicity="1" />
+          <End Type="UGEContextEntities.Bookmark" Role="Bookmark" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Article">
               <PropertyRef Name="ArticleID" />
@@ -849,8 +882,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Chapter_Article">
-          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
-          <End Role="Chapter" Type="UGEContextEntities.Chapter" Multiplicity="*" />
+          <End Type="UGEContextEntities.Article" Role="Article" Multiplicity="0..1" />
+          <End Type="UGEContextEntities.Chapter" Role="Chapter" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Article">
               <PropertyRef Name="ArticleID" />
@@ -861,8 +894,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LinksToDisplay_Article">
-          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
-          <End Role="LinksToDisplay" Type="UGEContextEntities.LinksToDisplay" Multiplicity="*" />
+          <End Type="UGEContextEntities.Article" Role="Article" Multiplicity="1" />
+          <End Type="UGEContextEntities.LinksToDisplay" Role="LinksToDisplay" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Article">
               <PropertyRef Name="ArticleID" />
@@ -873,8 +906,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MCQ_Article">
-          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
-          <End Role="MCQ" Type="UGEContextEntities.MCQ" Multiplicity="*" />
+          <End Type="UGEContextEntities.Article" Role="Article" Multiplicity="1" />
+          <End Type="UGEContextEntities.MCQ" Role="MCQ" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Article">
               <PropertyRef Name="ArticleID" />
@@ -885,8 +918,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Rating_Article">
-          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
-          <End Role="Rating" Type="UGEContextEntities.Rating" Multiplicity="*" />
+          <End Type="UGEContextEntities.Article" Role="Article" Multiplicity="1" />
+          <End Type="UGEContextEntities.Rating" Role="Rating" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Article">
               <PropertyRef Name="ArticleID" />
@@ -897,8 +930,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WatchedReference_Article">
-          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
-          <End Role="WatchedReference" Type="UGEContextEntities.WatchedReference" Multiplicity="*" />
+          <End Type="UGEContextEntities.Article" Role="Article" Multiplicity="1" />
+          <End Type="UGEContextEntities.WatchedReference" Role="WatchedReference" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Article">
               <PropertyRef Name="ArticleID" />
@@ -909,8 +942,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WatchedReference_Article1">
-          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
-          <End Role="WatchedReference" Type="UGEContextEntities.WatchedReference" Multiplicity="*" />
+          <End Type="UGEContextEntities.Article" Role="Article" Multiplicity="1" />
+          <End Type="UGEContextEntities.WatchedReference" Role="WatchedReference" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Article">
               <PropertyRef Name="ArticleID" />
@@ -921,8 +954,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WishList_Article">
-          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
-          <End Role="WishList" Type="UGEContextEntities.WishList" Multiplicity="*" />
+          <End Type="UGEContextEntities.Article" Role="Article" Multiplicity="1" />
+          <End Type="UGEContextEntities.WishList" Role="WishList" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Article">
               <PropertyRef Name="ArticleID" />
@@ -933,8 +966,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ArticleMistake_User">
-          <End Role="User" Type="UGEContextEntities.User" Multiplicity="1" />
-          <End Role="ArticleMistake" Type="UGEContextEntities.ArticleMistake" Multiplicity="*" />
+          <End Type="UGEContextEntities.User" Role="User" Multiplicity="1" />
+          <End Type="UGEContextEntities.ArticleMistake" Role="ArticleMistake" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserID" />
@@ -945,8 +978,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ReplyAgainstMistake_ArticleMistake">
-          <End Role="ArticleMistake" Type="UGEContextEntities.ArticleMistake" Multiplicity="1" />
-          <End Role="ReplyAgainstMistake" Type="UGEContextEntities.ReplyAgainstMistake" Multiplicity="*" />
+          <End Type="UGEContextEntities.ArticleMistake" Role="ArticleMistake" Multiplicity="1" />
+          <End Type="UGEContextEntities.ReplyAgainstMistake" Role="ReplyAgainstMistake" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ArticleMistake">
               <PropertyRef Name="ArticleMistakeID" />
@@ -957,8 +990,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Book_Subject">
-          <End Role="Subject" Type="UGEContextEntities.Subject" Multiplicity="1" />
-          <End Role="Book" Type="UGEContextEntities.Book" Multiplicity="*" />
+          <End Type="UGEContextEntities.Subject" Role="Subject" Multiplicity="1" />
+          <End Type="UGEContextEntities.Book" Role="Book" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subject">
               <PropertyRef Name="SubjectID" />
@@ -969,8 +1002,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Chapter_Book">
-          <End Role="Book" Type="UGEContextEntities.Book" Multiplicity="1" />
-          <End Role="Chapter" Type="UGEContextEntities.Chapter" Multiplicity="*" />
+          <End Type="UGEContextEntities.Book" Role="Book" Multiplicity="1" />
+          <End Type="UGEContextEntities.Chapter" Role="Chapter" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Book">
               <PropertyRef Name="BookID" />
@@ -981,8 +1014,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Bookmark_User">
-          <End Role="User" Type="UGEContextEntities.User" Multiplicity="1" />
-          <End Role="Bookmark" Type="UGEContextEntities.Bookmark" Multiplicity="*" />
+          <End Type="UGEContextEntities.User" Role="User" Multiplicity="1" />
+          <End Type="UGEContextEntities.Bookmark" Role="Bookmark" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserID" />
@@ -993,8 +1026,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LinksToDisplay_Chapter">
-          <End Role="Chapter" Type="UGEContextEntities.Chapter" Multiplicity="1" />
-          <End Role="LinksToDisplay" Type="UGEContextEntities.LinksToDisplay" Multiplicity="*" />
+          <End Type="UGEContextEntities.Chapter" Role="Chapter" Multiplicity="1" />
+          <End Type="UGEContextEntities.LinksToDisplay" Role="LinksToDisplay" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Chapter">
               <PropertyRef Name="ChapterID" />
@@ -1005,8 +1038,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Choice_Question">
-          <End Role="Question" Type="UGEContextEntities.Question" Multiplicity="1" />
-          <End Role="Choice" Type="UGEContextEntities.Choice" Multiplicity="*" />
+          <End Type="UGEContextEntities.Question" Role="Question" Multiplicity="1" />
+          <End Type="UGEContextEntities.Choice" Role="Choice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Question">
               <PropertyRef Name="QuestionID" />
@@ -1017,8 +1050,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Question_MCQ">
-          <End Role="MCQ" Type="UGEContextEntities.MCQ" Multiplicity="1" />
-          <End Role="Question" Type="UGEContextEntities.Question" Multiplicity="*" />
+          <End Type="UGEContextEntities.MCQ" Role="MCQ" Multiplicity="1" />
+          <End Type="UGEContextEntities.Question" Role="Question" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MCQ">
               <PropertyRef Name="MCQID" />
@@ -1029,8 +1062,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Rating_User">
-          <End Role="User" Type="UGEContextEntities.User" Multiplicity="1" />
-          <End Role="Rating" Type="UGEContextEntities.Rating" Multiplicity="*" />
+          <End Type="UGEContextEntities.User" Role="User" Multiplicity="1" />
+          <End Type="UGEContextEntities.Rating" Role="Rating" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserID" />
@@ -1041,8 +1074,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ReplyAgainstMistake_ReplyAgainstMistake">
-          <End Role="ReplyAgainstMistake" Type="UGEContextEntities.ReplyAgainstMistake" Multiplicity="1" />
-          <End Role="ReplyAgainstMistake1" Type="UGEContextEntities.ReplyAgainstMistake" Multiplicity="*" />
+          <End Type="UGEContextEntities.ReplyAgainstMistake" Role="ReplyAgainstMistake" Multiplicity="1" />
+          <End Type="UGEContextEntities.ReplyAgainstMistake" Role="ReplyAgainstMistake1" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ReplyAgainstMistake">
               <PropertyRef Name="ReplyAgainstMistakeID" />
@@ -1053,8 +1086,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ReplyAgainstMistake_User">
-          <End Role="User" Type="UGEContextEntities.User" Multiplicity="1" />
-          <End Role="ReplyAgainstMistake" Type="UGEContextEntities.ReplyAgainstMistake" Multiplicity="*" />
+          <End Type="UGEContextEntities.User" Role="User" Multiplicity="1" />
+          <End Type="UGEContextEntities.ReplyAgainstMistake" Role="ReplyAgainstMistake" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserID" />
@@ -1065,8 +1098,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WishList_User">
-          <End Role="User" Type="UGEContextEntities.User" Multiplicity="1" />
-          <End Role="WishList" Type="UGEContextEntities.WishList" Multiplicity="*" />
+          <End Type="UGEContextEntities.User" Role="User" Multiplicity="1" />
+          <End Type="UGEContextEntities.WishList" Role="WishList" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserID" />
@@ -1076,118 +1109,186 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="UGEContextEntitiesStoreContainer" CdmEntityContainer="UGEContext">
-          <EntitySetMapping Name="Articles"><EntityTypeMapping TypeName="UGEContextEntities.Article"><MappingFragment StoreEntitySet="Article">
-            <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
-            <ScalarProperty Name="ArticleName" ColumnName="ArticleName" />
-            <ScalarProperty Name="Description" ColumnName="Description" />
-            <ScalarProperty Name="PreviousArticleID" ColumnName="PreviousArticleID" />
-            <ScalarProperty Name="NextArticleID" ColumnName="NextArticleID" />
-            <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
-            <ScalarProperty Name="VideoLink" ColumnName="VideoLink" />
-            <ScalarProperty Name="Height" ColumnName="Height" />
-            <ScalarProperty Name="Width" ColumnName="Width" />
-            <ScalarProperty Name="AvgRating" ColumnName="AvgRating" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="ArticleMistakes"><EntityTypeMapping TypeName="UGEContextEntities.ArticleMistake"><MappingFragment StoreEntitySet="ArticleMistake">
-            <ScalarProperty Name="ArticleMistakeID" ColumnName="ArticleMistakeID" />
-            <ScalarProperty Name="UserID" ColumnName="UserID" />
-            <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
-            <ScalarProperty Name="SubmitedDated" ColumnName="SubmitedDated" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Books"><EntityTypeMapping TypeName="UGEContextEntities.Book"><MappingFragment StoreEntitySet="Book">
-            <ScalarProperty Name="BookID" ColumnName="BookID" />
-            <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
-            <ScalarProperty Name="BookName" ColumnName="BookName" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Bookmarks"><EntityTypeMapping TypeName="UGEContextEntities.Bookmark"><MappingFragment StoreEntitySet="Bookmark">
-            <ScalarProperty Name="BookmarkID" ColumnName="BookmarkID" />
-            <ScalarProperty Name="UserID" ColumnName="UserID" />
-            <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Chapters"><EntityTypeMapping TypeName="UGEContextEntities.Chapter"><MappingFragment StoreEntitySet="Chapter">
-            <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
-            <ScalarProperty Name="BookID" ColumnName="BookID" />
-            <ScalarProperty Name="TopicName" ColumnName="TopicName" />
-            <ScalarProperty Name="TotalArticles" ColumnName="TotalArticles" />
-            <ScalarProperty Name="MasterArticleID" ColumnName="MasterArticleID" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Choices"><EntityTypeMapping TypeName="UGEContextEntities.Choice"><MappingFragment StoreEntitySet="Choice">
-            <ScalarProperty Name="ChoiceID" ColumnName="ChoiceID" />
-            <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
-            <ScalarProperty Name="ChoiceDisplay" ColumnName="ChoiceDisplay" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="LinksToDisplays"><EntityTypeMapping TypeName="UGEContextEntities.LinksToDisplay"><MappingFragment StoreEntitySet="LinksToDisplay">
-            <ScalarProperty Name="LinksToDisplayID" ColumnName="LinksToDisplayID" />
-            <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
-            <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="MCQs"><EntityTypeMapping TypeName="UGEContextEntities.MCQ"><MappingFragment StoreEntitySet="MCQ">
-            <ScalarProperty Name="MCQID" ColumnName="MCQID" />
-            <ScalarProperty Name="Duration" ColumnName="Duration" />
-            <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
-            <ScalarProperty Name="Title" ColumnName="Title" />
-            <ScalarProperty Name="DisplayQuestion" ColumnName="DisplayQuestion" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Questions"><EntityTypeMapping TypeName="UGEContextEntities.Question"><MappingFragment StoreEntitySet="Question">
-            <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
-            <ScalarProperty Name="Hint" ColumnName="Hint" />
-            <ScalarProperty Name="AnswerChoiceID" ColumnName="AnswerChoiceID" />
-            <ScalarProperty Name="QuestionDisplay" ColumnName="QuestionDisplay" />
-            <ScalarProperty Name="MCQID" ColumnName="MCQID" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Ratings"><EntityTypeMapping TypeName="UGEContextEntities.Rating"><MappingFragment StoreEntitySet="Rating">
-            <ScalarProperty Name="RatingID" ColumnName="RatingID" />
-            <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
-            <ScalarProperty Name="UserID" ColumnName="UserID" />
-            <ScalarProperty Name="VideoQualtiy" ColumnName="VideoQualtiy" />
-            <ScalarProperty Name="TechingTechnique" ColumnName="TechingTechnique" />
-            <ScalarProperty Name="Mateials" ColumnName="Mateials" />
-            <ScalarProperty Name="AvgRating" ColumnName="AvgRating" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="ReplyAgainstMistakes"><EntityTypeMapping TypeName="UGEContextEntities.ReplyAgainstMistake"><MappingFragment StoreEntitySet="ReplyAgainstMistake">
-            <ScalarProperty Name="ReplyAgainstMistakeID" ColumnName="ReplyAgainstMistakeID" />
-            <ScalarProperty Name="ArticleMistakeID" ColumnName="ArticleMistakeID" />
-            <ScalarProperty Name="RepliedByWhomID" ColumnName="RepliedByWhomID" />
-            <ScalarProperty Name="Reply" ColumnName="Reply" />
-            <ScalarProperty Name="LinkedReplyMistakeID" ColumnName="LinkedReplyMistakeID" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Subjects"><EntityTypeMapping TypeName="UGEContextEntities.Subject"><MappingFragment StoreEntitySet="Subject">
-            <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
-            <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams"><EntityTypeMapping TypeName="UGEContextEntities.sysdiagram"><MappingFragment StoreEntitySet="sysdiagrams">
-            <ScalarProperty Name="name" ColumnName="name" />
-            <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-            <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-            <ScalarProperty Name="version" ColumnName="version" />
-            <ScalarProperty Name="definition" ColumnName="definition" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="UGEContextEntities.User"><MappingFragment StoreEntitySet="User">
-            <ScalarProperty Name="UserID" ColumnName="UserID" />
-            <ScalarProperty Name="LogName" ColumnName="LogName" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="UserProfiles"><EntityTypeMapping TypeName="UGEContextEntities.UserProfile"><MappingFragment StoreEntitySet="UserProfile">
-            <ScalarProperty Name="UserId" ColumnName="UserId" />
-            <ScalarProperty Name="UserName" ColumnName="UserName" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="WatchedReferences"><EntityTypeMapping TypeName="UGEContextEntities.WatchedReference"><MappingFragment StoreEntitySet="WatchedReference">
-            <ScalarProperty Name="WatchedReferenceID" ColumnName="WatchedReferenceID" />
-            <ScalarProperty Name="WhichFromArticleID" ColumnName="WhichFromArticleID" />
-            <ScalarProperty Name="WhichToArticleID" ColumnName="WhichToArticleID" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="WishLists"><EntityTypeMapping TypeName="UGEContextEntities.WishList"><MappingFragment StoreEntitySet="WishList">
-            <ScalarProperty Name="WishListID" ColumnName="WishListID" />
-            <ScalarProperty Name="UserID" ColumnName="UserID" />
-            <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
-            <ScalarProperty Name="Dated" ColumnName="Dated" />
-            <ScalarProperty Name="LastNotified" ColumnName="LastNotified" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Articles">
+            <EntityTypeMapping TypeName="UGEContextEntities.Article">
+              <MappingFragment StoreEntitySet="Article">
+                <ScalarProperty Name="AvgRating" ColumnName="AvgRating" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="VideoLink" ColumnName="VideoLink" />
+                <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
+                <ScalarProperty Name="NextArticleID" ColumnName="NextArticleID" />
+                <ScalarProperty Name="PreviousArticleID" ColumnName="PreviousArticleID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ArticleName" ColumnName="ArticleName" />
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArticleMistakes">
+            <EntityTypeMapping TypeName="UGEContextEntities.ArticleMistake">
+              <MappingFragment StoreEntitySet="ArticleMistake">
+                <ScalarProperty Name="SubmitedDated" ColumnName="SubmitedDated" />
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ArticleMistakeID" ColumnName="ArticleMistakeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="UGEContextEntities.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bookmarks">
+            <EntityTypeMapping TypeName="UGEContextEntities.Bookmark">
+              <MappingFragment StoreEntitySet="Bookmark">
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="BookmarkID" ColumnName="BookmarkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chapters">
+            <EntityTypeMapping TypeName="UGEContextEntities.Chapter">
+              <MappingFragment StoreEntitySet="Chapter">
+                <ScalarProperty Name="MasterArticleID" ColumnName="MasterArticleID" />
+                <ScalarProperty Name="TotalArticles" ColumnName="TotalArticles" />
+                <ScalarProperty Name="TopicName" ColumnName="TopicName" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Choices">
+            <EntityTypeMapping TypeName="UGEContextEntities.Choice">
+              <MappingFragment StoreEntitySet="Choice">
+                <ScalarProperty Name="ChoiceDisplay" ColumnName="ChoiceDisplay" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="ChoiceID" ColumnName="ChoiceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LinksToDisplays">
+            <EntityTypeMapping TypeName="UGEContextEntities.LinksToDisplay">
+              <MappingFragment StoreEntitySet="LinksToDisplay">
+                <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+                <ScalarProperty Name="LinksToDisplayID" ColumnName="LinksToDisplayID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MCQs">
+            <EntityTypeMapping TypeName="UGEContextEntities.MCQ">
+              <MappingFragment StoreEntitySet="MCQ">
+                <ScalarProperty Name="DisplayQuestion" ColumnName="DisplayQuestion" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="MCQID" ColumnName="MCQID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="UGEContextEntities.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="MCQID" ColumnName="MCQID" />
+                <ScalarProperty Name="QuestionDisplay" ColumnName="QuestionDisplay" />
+                <ScalarProperty Name="AnswerChoiceID" ColumnName="AnswerChoiceID" />
+                <ScalarProperty Name="Hint" ColumnName="Hint" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ratings">
+            <EntityTypeMapping TypeName="UGEContextEntities.Rating">
+              <MappingFragment StoreEntitySet="Rating">
+                <ScalarProperty Name="AvgRating" ColumnName="AvgRating" />
+                <ScalarProperty Name="Mateials" ColumnName="Mateials" />
+                <ScalarProperty Name="TechingTechnique" ColumnName="TechingTechnique" />
+                <ScalarProperty Name="VideoQualtiy" ColumnName="VideoQualtiy" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+                <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReplyAgainstMistakes">
+            <EntityTypeMapping TypeName="UGEContextEntities.ReplyAgainstMistake">
+              <MappingFragment StoreEntitySet="ReplyAgainstMistake">
+                <ScalarProperty Name="LinkedReplyMistakeID" ColumnName="LinkedReplyMistakeID" />
+                <ScalarProperty Name="Reply" ColumnName="Reply" />
+                <ScalarProperty Name="RepliedByWhomID" ColumnName="RepliedByWhomID" />
+                <ScalarProperty Name="ArticleMistakeID" ColumnName="ArticleMistakeID" />
+                <ScalarProperty Name="ReplyAgainstMistakeID" ColumnName="ReplyAgainstMistakeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjects">
+            <EntityTypeMapping TypeName="UGEContextEntities.Subject">
+              <MappingFragment StoreEntitySet="Subject">
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="UGEContextEntities.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="UGEContextEntities.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="LogName" ColumnName="LogName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="UGEContextEntities.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WatchedReferences">
+            <EntityTypeMapping TypeName="UGEContextEntities.WatchedReference">
+              <MappingFragment StoreEntitySet="WatchedReference">
+                <ScalarProperty Name="WhichToArticleID" ColumnName="WhichToArticleID" />
+                <ScalarProperty Name="WhichFromArticleID" ColumnName="WhichFromArticleID" />
+                <ScalarProperty Name="WatchedReferenceID" ColumnName="WatchedReferenceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WishLists">
+            <EntityTypeMapping TypeName="UGEContextEntities.WishList">
+              <MappingFragment StoreEntitySet="WishList">
+                <ScalarProperty Name="LastNotified" ColumnName="LastNotified" />
+                <ScalarProperty Name="Dated" ColumnName="Dated" />
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="WishListID" ColumnName="WishListID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1210,167 +1311,141 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="UgeModel">
-        <EntityTypeShape EntityType="UGEContextEntities.Article" Width="1.5" PointX="0.75" PointY="10.125" Height="4.6725065104166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="UGEContextEntities.ArticleMistake" Width="1.5" PointX="3" PointY="11.375" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="UGEContextEntities.Book" Width="1.5" PointX="3.75" PointY="2.5" Height="1.9802864583333322" IsExpanded="true" />
-        <EntityTypeShape EntityType="UGEContextEntities.Bookmark" Width="1.5" PointX="3" PointY="8.5" Height="1.9802864583333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="UGEContextEntities.Chapter" Width="1.5" PointX="6" PointY="11.25" Height="2.5571907552083317" IsExpanded="true" />
-        <EntityTypeShape EntityType="UGEContextEntities.Choice" Width="1.5" PointX="7.5" PointY="19.375" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="UGEContextEntities.LinksToDisplay" Width="1.5" PointX="11.25" PointY="11.5" Height="1.9802864583333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="UGEContextEntities.MCQ" Width="1.5" PointX="3" PointY="19.125" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="UGEContextEntities.Question" Width="1.5" PointX="5.25" PointY="19.125" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="UGEContextEntities.Rating" Width="1.5" PointX="3" PointY="15.125" Height="2.7494921874999978" IsExpanded="true" />
-        <EntityTypeShape EntityType="UGEContextEntities.ReplyAgainstMistake" Width="1.5" PointX="8.25" PointY="11.125" Height="2.7494921875000031" IsExpanded="true" />
-        <EntityTypeShape EntityType="UGEContextEntities.Subject" Width="1.5" PointX="1.5" PointY="2.75" Height="1.5956835937500031" IsExpanded="true" />
-        <EntityTypeShape EntityType="UGEContextEntities.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" Height="1.9802864583333388" IsExpanded="true" />
-        <EntityTypeShape EntityType="UGEContextEntities.User" Width="1.5" PointX="3.75" PointY="5.375" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="UGEContextEntities.UserProfile" Width="1.5" PointX="0.75" PointY="5.75" Height="1.4033821614583388" IsExpanded="true" />
-        <EntityTypeShape EntityType="UGEContextEntities.WatchedReference" Width="1.5" PointX="3" PointY="25.75" Height="1.9802864583333388" IsExpanded="true" />
-        <EntityTypeShape EntityType="UGEContextEntities.WishList" Width="1.5" PointX="6" PointY="7.375" Height="2.3648893229166674" IsExpanded="true" />
-        <AssociationConnector Association="UGEContextEntities.FK_ArticleMistake_Article" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="12.557444661458334" />
-          <ConnectorPoint PointX="3" PointY="12.557444661458334" />
+        <EntityTypeShape EntityType="UGEContextEntities.Article" Width="1.5" PointX="7.5" PointY="9.75" Height="4.8648079427083388" />
+        <EntityTypeShape EntityType="UGEContextEntities.ArticleMistake" Width="1.5" PointX="9.75" PointY="11" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="UGEContextEntities.Book" Width="1.5" PointX="3" PointY="11.25" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="UGEContextEntities.Bookmark" Width="1.5" PointX="9.75" PointY="8.25" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="UGEContextEntities.Chapter" Width="1.5" PointX="5.25" PointY="10.875" Height="2.749492187499996" />
+        <EntityTypeShape EntityType="UGEContextEntities.Choice" Width="1.5" PointX="14.25" PointY="18.5" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="UGEContextEntities.LinksToDisplay" Width="1.5" PointX="9.75" PointY="14.25" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="UGEContextEntities.MCQ" Width="1.5" PointX="9.75" PointY="18.25" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="UGEContextEntities.Question" Width="1.5" PointX="12" PointY="18.25" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="UGEContextEntities.Rating" Width="1.5" PointX="12.75" PointY="10.875" Height="2.7494921875000102" />
+        <EntityTypeShape EntityType="UGEContextEntities.ReplyAgainstMistake" Width="1.5" PointX="15" PointY="10.875" Height="2.749492187499996" />
+        <EntityTypeShape EntityType="UGEContextEntities.Subject" Width="1.5" PointX="0.75" PointY="11.375" Height="1.595683593749996" />
+        <EntityTypeShape EntityType="UGEContextEntities.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="UGEContextEntities.User" Width="1.5" PointX="10.5" PointY="5" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="UGEContextEntities.UserProfile" Width="1.5" PointX="2.75" PointY="0.75" Height="1.4033821614583246" />
+        <EntityTypeShape EntityType="UGEContextEntities.WatchedReference" Width="1.5" PointX="9.75" PointY="24.875" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="UGEContextEntities.WishList" Width="1.5" PointX="12.75" PointY="7" Height="2.3648893229166674" />
+        <AssociationConnector Association="UGEContextEntities.FK_Article_Chapter" >
+          <ConnectorPoint PointX="6.75" PointY="12.249746093749998" />
+          <ConnectorPoint PointX="7.5" PointY="12.249746093749998" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_Bookmark_Article" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="10.302643229166666" />
-          <ConnectorPoint PointX="3" PointY="10.302643229166666" />
+        <AssociationConnector Association="UGEContextEntities.FK_ArticleMistake_Article" >
+          <ConnectorPoint PointX="9" PointY="12.182444661458334" />
+          <ConnectorPoint PointX="9.75" PointY="12.182444661458334" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_Chapter_Article" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="11.28125" />
-          <ConnectorPoint PointX="4.7916671666666675" PointY="11.28125" />
-          <ConnectorPoint PointX="4.9583338333333336" PointY="11.28125" />
-          <ConnectorPoint PointX="5.0104194166666671" PointY="11.28125" />
-          <ConnectorPoint PointX="5.1770860833333332" PointY="11.28125" />
-          <ConnectorPoint PointX="5.541666666666667" PointY="11.28125" />
-          <ConnectorPoint PointX="5.708333333333333" PointY="11.28125" />
-          <ConnectorPoint PointX="6" PointY="11.28125" />
+        <AssociationConnector Association="UGEContextEntities.FK_Bookmark_Article" >
+          <ConnectorPoint PointX="9" PointY="9.99014322916667" />
+          <ConnectorPoint PointX="9.75" PointY="9.99014322916667" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_LinksToDisplay_Article" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="14.367249348958335" />
-          <ConnectorPoint PointX="5.0104194166666671" PointY="14.367249348958335" />
-          <ConnectorPoint PointX="5.1770860833333332" PointY="14.367249348958335" />
-          <ConnectorPoint PointX="8.6985897435897428" PointY="14.367249348958335" />
-          <ConnectorPoint PointX="8.86525641025641" PointY="14.367249348958335" />
-          <ConnectorPoint PointX="9.1451282051282039" PointY="14.367249348958335" />
-          <ConnectorPoint PointX="9.3117948717948718" PointY="14.367249348958335" />
-          <ConnectorPoint PointX="12" PointY="14.367249348958335" />
-          <ConnectorPoint PointX="12" PointY="13.480286458333332" />
+        <AssociationConnector Association="UGEContextEntities.FK_Chapter_Article" >
+          <ConnectorPoint PointX="7.5" PointY="11.499873046874999" />
+          <ConnectorPoint PointX="6.75" PointY="11.499873046874999" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_MCQ_Article" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.5" PointY="14.797506510416667" />
-          <ConnectorPoint PointX="1.5" PointY="20.307444661458334" />
-          <ConnectorPoint PointX="2.0260454166666664" PointY="20.307444661458334" />
-          <ConnectorPoint PointX="2.1927120833333333" PointY="20.307444661458334" />
-          <ConnectorPoint PointX="3" PointY="20.307444661458334" />
+        <AssociationConnector Association="UGEContextEntities.FK_LinksToDisplay_Article" >
+          <ConnectorPoint PointX="9" PointY="14.432403971354169" />
+          <ConnectorPoint PointX="9.75" PointY="14.432403971354169" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_Rating_Article" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.9062525" PointY="14.797506510416667" />
-          <ConnectorPoint PointX="1.9062525" PointY="16.499746093749998" />
-          <ConnectorPoint PointX="2.0260454166666664" PointY="16.499746093749998" />
-          <ConnectorPoint PointX="2.1927120833333333" PointY="16.499746093749998" />
-          <ConnectorPoint PointX="3" PointY="16.499746093749998" />
+        <AssociationConnector Association="UGEContextEntities.FK_MCQ_Article" >
+          <ConnectorPoint PointX="8.25" PointY="14.614807942708339" />
+          <ConnectorPoint PointX="8.25" PointY="19.432444661458334" />
+          <ConnectorPoint PointX="8.5729191666666669" PointY="19.432444661458334" />
+          <ConnectorPoint PointX="8.7395858333333347" PointY="19.432444661458334" />
+          <ConnectorPoint PointX="9.75" PointY="19.432444661458334" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_WatchedReference_Article" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.0937475" PointY="14.797506510416667" />
-          <ConnectorPoint PointX="1.0937475" PointY="26.740143229166669" />
-          <ConnectorPoint PointX="3" PointY="26.740143229166669" />
+        <AssociationConnector Association="UGEContextEntities.FK_Rating_Article" >
+          <ConnectorPoint PointX="9" PointY="13.525940755208339" />
+          <ConnectorPoint PointX="11.327718098958338" PointY="13.525940755208339" />
+          <ConnectorPoint PointX="11.494384765625005" PointY="13.525940755208339" />
+          <ConnectorPoint PointX="12.75" PointY="13.525940755208339" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_WatchedReference_Article1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.10937875" PointY="14.797506510416667" />
-          <ConnectorPoint PointX="2.10937875" PointY="26.213819114583334" />
-          <ConnectorPoint PointX="3" PointY="26.213819114583334" />
+        <AssociationConnector Association="UGEContextEntities.FK_WatchedReference_Article" >
+          <ConnectorPoint PointX="8.6562525" PointY="14.614807942708339" />
+          <ConnectorPoint PointX="8.6562525" PointY="25.865143229166669" />
+          <ConnectorPoint PointX="9.75" PointY="25.865143229166669" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_WishList_Article" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.5" PointY="10.125" />
-          <ConnectorPoint PointX="1.5" PointY="8.1199446614583337" />
-          <ConnectorPoint PointX="4.041666666666667" PointY="8.1199446614583337" />
-          <ConnectorPoint PointX="4.208333333333333" PointY="8.1199446614583337" />
-          <ConnectorPoint PointX="4.6041644166666673" PointY="8.1199446614583337" />
-          <ConnectorPoint PointX="4.7708310833333334" PointY="8.1199446614583337" />
-          <ConnectorPoint PointX="4.7916671666666675" PointY="8.1199446614583337" />
-          <ConnectorPoint PointX="4.9583338333333336" PointY="8.1199446614583337" />
-          <ConnectorPoint PointX="5.0104194166666671" PointY="8.1199446614583337" />
-          <ConnectorPoint PointX="5.1770860833333332" PointY="8.1199446614583337" />
-          <ConnectorPoint PointX="5.541666666666667" PointY="8.1199446614583337" />
-          <ConnectorPoint PointX="5.708333333333333" PointY="8.1199446614583337" />
-          <ConnectorPoint PointX="6" PointY="8.1199446614583337" />
+        <AssociationConnector Association="UGEContextEntities.FK_WatchedReference_Article1" >
+          <ConnectorPoint PointX="7.8437475" PointY="14.614807942708339" />
+          <ConnectorPoint PointX="7.8437475" PointY="25.338819114583341" />
+          <ConnectorPoint PointX="8.5729191666666669" PointY="25.338819114583341" />
+          <ConnectorPoint PointX="8.7395858333333347" PointY="25.338819114583341" />
+          <ConnectorPoint PointX="9.75" PointY="25.338819114583341" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_ArticleMistake_User" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.8750005000000005" PointY="7.7398893229166674" />
-          <ConnectorPoint PointX="4.8750005000000005" PointY="12.557444661458334" />
-          <ConnectorPoint PointX="4.5" PointY="12.557444661458334" />
+        <AssociationConnector Association="UGEContextEntities.FK_WishList_Article" >
+          <ConnectorPoint PointX="8.25" PointY="9.75" />
+          <ConnectorPoint PointX="8.25" PointY="7.8074446614583337" />
+          <ConnectorPoint PointX="10.791666666666666" PointY="7.8074446614583328" />
+          <ConnectorPoint PointX="10.958333333333334" PointY="7.8074446614583337" />
+          <ConnectorPoint PointX="11.541667166666665" PointY="7.8074446614583328" />
+          <ConnectorPoint PointX="11.708333833333333" PointY="7.8074446614583337" />
+          <ConnectorPoint PointX="11.760419416666666" PointY="7.8074446614583328" />
+          <ConnectorPoint PointX="11.927086083333334" PointY="7.8074446614583337" />
+          <ConnectorPoint PointX="12.75" PointY="7.8074446614583337" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_ReplyAgainstMistake_ArticleMistake" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="13.739889322916667" />
-          <ConnectorPoint PointX="4.875" PointY="14.114889322916667" />
-          <ConnectorPoint PointX="4.875" PointY="14.124492187500003" />
-          <ConnectorPoint PointX="5.0104194166666671" PointY="14.124492187500003" />
-          <ConnectorPoint PointX="5.1770860833333332" PointY="14.124492187500003" />
-          <ConnectorPoint PointX="8" PointY="14.124492187500003" />
-          <ConnectorPoint PointX="8.25" PointY="13.874492187500003" />
+        <AssociationConnector Association="UGEContextEntities.FK_ArticleMistake_User" >
+          <ConnectorPoint PointX="11.625000499999999" PointY="7.3648893229166674" />
+          <ConnectorPoint PointX="11.625000499999999" PointY="12.182444661458334" />
+          <ConnectorPoint PointX="11.25" PointY="12.182444661458334" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_Book_Subject" ManuallyRouted="false">
-          <ConnectorPoint PointX="3" PointY="3.5478417968750016" />
-          <ConnectorPoint PointX="3.75" PointY="3.5478417968750016" />
+        <AssociationConnector Association="UGEContextEntities.FK_ReplyAgainstMistake_ArticleMistake" >
+          <ConnectorPoint PointX="11.25" PointY="13.364889322916667" />
+          <ConnectorPoint PointX="11.625" PointY="13.739889322916667" />
+          <ConnectorPoint PointX="11.625" PointY="13.999492187499996" />
+          <ConnectorPoint PointX="14.625" PointY="13.999492187499996" />
+          <ConnectorPoint PointX="15" PointY="13.624492187499996" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_Chapter_Book" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="4.4802864583333317" />
-          <ConnectorPoint PointX="5.625" PointY="4.8552864583333317" />
-          <ConnectorPoint PointX="5.625" PointY="12.575472377604168" />
-          <ConnectorPoint PointX="6" PointY="12.575472377604168" />
+        <AssociationConnector Association="UGEContextEntities.FK_Book_Subject" >
+          <ConnectorPoint PointX="2.25" PointY="12.172841796874998" />
+          <ConnectorPoint PointX="3" PointY="12.172841796874998" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_Bookmark_User" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.125" PointY="7.7398893229166674" />
-          <ConnectorPoint PointX="4.125" PointY="8.5" />
+        <AssociationConnector Association="UGEContextEntities.FK_Chapter_Book" >
+          <ConnectorPoint PointX="4.5" PointY="12.240143229166669" />
+          <ConnectorPoint PointX="5.25" PointY="12.240143229166669" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_LinksToDisplay_Chapter" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="13.807190755208332" />
-          <ConnectorPoint PointX="6.75" PointY="14.057190755208332" />
-          <ConnectorPoint PointX="7.9839680989583384" PointY="14.057190755208332" />
-          <ConnectorPoint PointX="8.1506347656250053" PointY="14.057190755208332" />
-          <ConnectorPoint PointX="8.6985897435897428" PointY="14.057190755208332" />
-          <ConnectorPoint PointX="8.86525641025641" PointY="14.057190755208332" />
-          <ConnectorPoint PointX="9.1451282051282039" PointY="14.057190755208332" />
-          <ConnectorPoint PointX="9.3117948717948718" PointY="14.057190755208332" />
-          <ConnectorPoint PointX="10.875" PointY="14.057190755208332" />
-          <ConnectorPoint PointX="10.875" PointY="12.490143229166666" />
-          <ConnectorPoint PointX="11.25" PointY="12.490143229166666" />
+        <AssociationConnector Association="UGEContextEntities.FK_Bookmark_User" >
+          <ConnectorPoint PointX="10.875" PointY="7.3648893229166674" />
+          <ConnectorPoint PointX="10.875" PointY="8.25" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_Choice_Question" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="20.268992513020834" />
-          <ConnectorPoint PointX="7.5" PointY="20.268992513020834" />
+        <AssociationConnector Association="UGEContextEntities.FK_LinksToDisplay_Chapter" >
+          <ConnectorPoint PointX="6" PointY="13.624492187499996" />
+          <ConnectorPoint PointX="6" PointY="15.453797200520839" />
+          <ConnectorPoint PointX="7.7604141666666671" PointY="15.453797200520839" />
+          <ConnectorPoint PointX="7.9270808333333331" PointY="15.453797200520839" />
+          <ConnectorPoint PointX="8.1666666666666661" PointY="15.453797200520839" />
+          <ConnectorPoint PointX="8.3333333333333339" PointY="15.453797200520839" />
+          <ConnectorPoint PointX="8.5729191666666669" PointY="15.453797200520839" />
+          <ConnectorPoint PointX="8.7395858333333347" PointY="15.453797200520839" />
+          <ConnectorPoint PointX="9.75" PointY="15.453797200520839" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_Question_MCQ" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="20.307444661458334" />
-          <ConnectorPoint PointX="5.25" PointY="20.307444661458334" />
+        <AssociationConnector Association="UGEContextEntities.FK_Choice_Question" >
+          <ConnectorPoint PointX="13.5" PointY="19.393992513020834" />
+          <ConnectorPoint PointX="14.25" PointY="19.393992513020834" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_Rating_User" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.09375275" PointY="7.7398893229166674" />
-          <ConnectorPoint PointX="5.09375275" PointY="16.499746093749998" />
-          <ConnectorPoint PointX="4.5" PointY="16.499746093749998" />
+        <AssociationConnector Association="UGEContextEntities.FK_Question_MCQ" >
+          <ConnectorPoint PointX="11.25" PointY="19.432444661458334" />
+          <ConnectorPoint PointX="12" PointY="19.432444661458334" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_ReplyAgainstMistake_ReplyAgainstMistake" ManuallyRouted="false">
-          <ConnectorPoint PointX="8.7819230769230767" PointY="13.874492187500003" />
-          <ConnectorPoint PointX="8.7819230769230767" PointY="14.499492187500003" />
-          <ConnectorPoint PointX="9.2284615384615378" PointY="14.499492187500003" />
-          <ConnectorPoint PointX="9.2284615384615378" PointY="13.874492187500003" />
+        <AssociationConnector Association="UGEContextEntities.FK_Rating_User" >
+          <ConnectorPoint PointX="11.84375275" PointY="7.3648893229166674" />
+          <ConnectorPoint PointX="11.84375275" PointY="13.494688255208345" />
+          <ConnectorPoint PointX="12.75" PointY="13.494688255208345" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_ReplyAgainstMistake_User" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.68749775" PointY="7.7398893229166674" />
-          <ConnectorPoint PointX="4.68749775" PointY="11.15625" />
-          <ConnectorPoint PointX="4.7916671666666675" PointY="11.15625" />
-          <ConnectorPoint PointX="4.9583338333333336" PointY="11.15625" />
-          <ConnectorPoint PointX="5.0104194166666671" PointY="11.15625" />
-          <ConnectorPoint PointX="5.1770860833333332" PointY="11.15625" />
-          <ConnectorPoint PointX="5.541666666666667" PointY="11.15625" />
-          <ConnectorPoint PointX="5.708333333333333" PointY="11.15625" />
-          <ConnectorPoint PointX="8.25" PointY="11.15625" />
+        <AssociationConnector Association="UGEContextEntities.FK_ReplyAgainstMistake_ReplyAgainstMistake" >
+          <ConnectorPoint PointX="15.531923076923077" PointY="13.624492187499996" />
+          <ConnectorPoint PointX="15.531923076923077" PointY="13.874492187499996" />
+          <ConnectorPoint PointX="15.978461538461538" PointY="13.874492187499996" />
+          <ConnectorPoint PointX="15.978461538461538" PointY="13.624492187499996" />
         </AssociationConnector>
-        <AssociationConnector Association="UGEContextEntities.FK_WishList_User" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="7.5574446614583337" />
-          <ConnectorPoint PointX="5.541666666666667" PointY="7.5574446614583328" />
-          <ConnectorPoint PointX="5.708333333333333" PointY="7.5574446614583337" />
-          <ConnectorPoint PointX="6" PointY="7.5574446614583337" />
+        <AssociationConnector Association="UGEContextEntities.FK_ReplyAgainstMistake_User" >
+          <ConnectorPoint PointX="12" PointY="5.96875" />
+          <ConnectorPoint PointX="15.75" PointY="5.96875" />
+          <ConnectorPoint PointX="15.75" PointY="10.875" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_WishList_User" >
+          <ConnectorPoint PointX="12" PointY="7.1824446614583337" />
+          <ConnectorPoint PointX="12.75" PointY="7.1824446614583337" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

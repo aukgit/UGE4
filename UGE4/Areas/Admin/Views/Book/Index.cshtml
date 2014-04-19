@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<UGE4.DbInfrastructure.Book>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Book";
 }
 
-<h2>Index</h2>
+<h2>Book</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create Book", "Create")
 </p>
 <table class="table table-hover">
     <tr>
@@ -30,8 +30,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.BookID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BookID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BookID })
+            @Html.ActionLink("Delete", "Delete", new { id=item.BookID }, new {  onclick="return confirm('Are you sure you want to delete this(can't be retrive again)?')" })
         </td>
     </tr>
 }

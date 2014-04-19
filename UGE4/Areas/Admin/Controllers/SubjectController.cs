@@ -11,7 +11,7 @@ namespace UGE4.Areas.Admin.Controllers
 {
 	public class SubjectController : Controller
 	{
-        readonly UGEContext db = new UGEContext();
+		readonly UGEContext db = new UGEContext();
 		
 		void GenerateDropdowns(Subject subject = null){
 

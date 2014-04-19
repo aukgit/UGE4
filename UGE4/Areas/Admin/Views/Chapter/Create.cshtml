@@ -4,11 +4,11 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Creating Chapter</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
-
+    @Html.AntiForgeryToken()
     <fieldset>
         <legend>Chapter</legend>
 

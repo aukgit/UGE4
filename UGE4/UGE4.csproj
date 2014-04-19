@@ -170,12 +170,24 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\ArticleController.cs" />
-    <Compile Include="Areas\Admin\Controllers\BookController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ChapterController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ChoiceController.cs" />
-    <Compile Include="Areas\Admin\Controllers\MCQController.cs" />
-    <Compile Include="Areas\Admin\Controllers\SubjectController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ArticleController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Areas\Admin\Controllers\BookController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Areas\Admin\Controllers\ChapterController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Areas\Admin\Controllers\ChoiceController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Areas\Admin\Controllers\MCQController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Areas\Admin\Controllers\SubjectController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DbInfrastructure\Context\Article.cs" />
@@ -360,11 +372,6 @@
     <Content Include="Areas\Admin\Views\Chapter\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Chapter\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Chapter\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Book\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Book\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Book\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Book\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Book\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Article\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Article\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Article\Create.cshtml" />
@@ -380,6 +387,11 @@
     <Content Include="Areas\Admin\Views\Choice\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Choice\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Choice\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Book\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Book\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Book\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Book\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Book\Delete.cshtml" />
     <None Include="CodeTemplates\AddController\Controller.tt" />
     <None Include="CodeTemplates\AddController\ControllerWithContext.tt" />
     <None Include="CodeTemplates\AddView\CSHTML\Create.tt" />

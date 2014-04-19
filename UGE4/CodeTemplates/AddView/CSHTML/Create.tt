@@ -30,13 +30,13 @@ if(mvcHost.IsPartialView) {
 <#
 if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 #>
-    Layout = "<#= mvcHost.MasterPageFile#>";
+    Layout = "<#= mvcHost.ViewDataType.Name #> - <#= mvcHost.MasterPageFile#>";
 <#
 }
 #>
 }
 
-<h2><#= mvcHost.ViewName#></h2>
+<h2>Creating <#= mvcHost.ViewDataType.Name #></h2>
 
 <#
 } else {
@@ -73,29 +73,29 @@ if (mvcHost.ReferenceScriptLibraries) {
 }
 #>
 @using (Html.BeginForm()) {
-    <div class="form-horizontal">
-    <h4><#= mvcHost.ViewDataType.Name #></h4>
-        @Html.ValidationSummary(true)
-        @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
 
+    <fieldset>
+        <legend><#= mvcHost.ViewDataType.Name #></legend>
 
 <#
 foreach (ModelProperty property in GetModelProperties(mvcHost.ViewDataType)) {
     if (!property.IsPrimaryKey && !property.IsReadOnly && property.Scaffold) {
 #>
-        <div class="form-group">
+        <div class="editor-label">
 <#
         if (property.IsForeignKey) {
 #>
-            @Html.LabelFor(model => model.<#= property.Name #>, "<#= property.AssociationName #>",new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.<#= property.Name #>, "<#= property.AssociationName #>")
 <#
         } else {
 #>
-            @Html.LabelFor(model => model.<#= property.Name #>,new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.<#= property.Name #>)
 <#
         }
 #>
-        <div class="col-md-10">
+        </div>
+        <div class="editor-field">
 <#
         if (property.IsForeignKey) {
 #>
@@ -108,17 +108,16 @@ foreach (ModelProperty property in GetModelProperties(mvcHost.ViewDataType)) {
         }
 #>
             @Html.ValidationMessageFor(model => model.<#= property.Name #>)
-            </div>
         </div>
-</div>
+
 <#
     }
 }
 #>
-        <div>
-            <input class="btn" type="submit" value="Create" />
-        </div>
-    
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
 }
 
 <div>

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<UGE4.DbInfrastructure.Choice>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Choice";
 }
 
-<h2>Index</h2>
+<h2>Choice</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create Choice", "Create")
 </p>
 <table class="table table-hover">
     <tr>
@@ -30,8 +30,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ChoiceID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ChoiceID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ChoiceID })
+            @Html.ActionLink("Delete", "Delete", new { id=item.ChoiceID }, new {  onclick="return confirm('Are you sure you want to delete this(can't be retrive again)?')" })
         </td>
     </tr>
 }

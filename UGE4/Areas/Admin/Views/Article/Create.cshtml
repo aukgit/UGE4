@@ -4,11 +4,11 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Creating Article</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
-
+    @Html.AntiForgeryToken()
     <fieldset>
         <legend>Article</legend>
 
@@ -45,10 +45,10 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ChapterID)
+            @Html.LabelFor(model => model.ChapterID, "Chapter")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ChapterID)
+            @Html.DropDownList("ChapterID", String.Empty)
             @Html.ValidationMessageFor(model => model.ChapterID)
         </div>
 

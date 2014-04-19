@@ -12,24 +12,13 @@ namespace UGE4.DbInfrastructure
     using System;
     using System.Collections.Generic;
     
-    public partial class Chapter
+    public partial class LinksToDisplay
     {
-        public Chapter()
-        {
-            this.Articles = new HashSet<Article>();
-            this.LinksToDisplays = new HashSet<LinksToDisplay>();
-        }
-    
+        public long LinksToDisplayID { get; set; }
+        public long ArticleID { get; set; }
         public int ChapterID { get; set; }
-        public int BookID { get; set; }
-        public string TopicName { get; set; }
-       
-        public int TotalArticles { get; set; }
-        public Nullable<long> MasterArticleID { get; set; }
     
-        public virtual ICollection<Article> Articles { get; set; }
         public virtual Article Article { get; set; }
-        public virtual Book Book { get; set; }
-        public virtual ICollection<LinksToDisplay> LinksToDisplays { get; set; }
+        public virtual Chapter Chapter { get; set; }
     }
 }

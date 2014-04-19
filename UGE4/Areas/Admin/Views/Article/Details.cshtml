@@ -1,7 +1,7 @@
 ﻿@model UGE4.DbInfrastructure.Article
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Article - Details";
 }
 
 <h2>Details</h2>
@@ -38,10 +38,10 @@
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.ChapterID)
+         @Html.DisplayNameFor(model => model.Chapter.TopicName)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.ChapterID)
+        @Html.DisplayFor(model => model.Chapter.TopicName)
     </div>
 
     <div class="display-label">

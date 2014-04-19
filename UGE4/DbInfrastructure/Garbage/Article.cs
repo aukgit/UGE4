@@ -11,7 +11,6 @@ namespace UGE4.DbInfrastructure
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
     
     public partial class Article
     {

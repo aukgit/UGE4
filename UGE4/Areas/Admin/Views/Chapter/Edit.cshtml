@@ -1,14 +1,14 @@
 ﻿@model UGE4.DbInfrastructure.Chapter
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Chapter - Edit";
 }
 
-<h2>Edit</h2>
+<h2>Editing - Chapter</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
-
+    @Html.AntiForgeryToken()
     <fieldset>
         <legend>Chapter</legend>
 

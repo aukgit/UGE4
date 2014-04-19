@@ -9,117 +9,160 @@ using UGE4.DbInfrastructure;
 
 namespace UGE4.Areas.Admin.Controllers
 {
-    public class BookController : Controller
-    {
-        private UGEContext db = new UGEContext();
+	public class BookController : Controller
+	{
+		readonly UGEContext db = new UGEContext();
+		
+		void GenerateDropdowns(Book book = null){
+			var subjects = db.Subjects.Select(b => new { SubjectID = b.SubjectID , SubjectName = b.SubjectName} ).ToList();
 
-        //
-        // GET: /Admin/Book/
+			if(book == null) {	
+				ViewBag.SubjectID = new SelectList(subjects, "SubjectID", "SubjectName");
+			} else {
+				ViewBag.SubjectID = new SelectList(subjects, "SubjectID", "SubjectName", book.SubjectID);
+			} 
+		}
 
-        public ActionResult Index()
-        {
-            var books = db.Books.Include(b => b.Subject);
-            return View(books.ToList());
-        }
+		
+		public ActionResult Index() {
+			bool result = ViewTapping(ViewStates.Index);
 
-        //
-        // GET: /Admin/Book/Details/5
+			var books = db.Books.Include(b => b.Subject).ToList();
+			return View(books);
+		}
 
-        public ActionResult Details(int id = 0)
-        {
-            Book book = db.Books.Find(id);
-            if (book == null)
-            {
-                return HttpNotFound();
-            }
-            return View(book);
-        }
+		public ActionResult Create() {
+			GenerateDropdowns();
+			bool result = ViewTapping(ViewStates.Create);
+			return View();
+		}
 
-        //
-        // GET: /Admin/Book/Create
+		[HttpPost]
+		public ActionResult Create(Book book)
+		{
+			bool result = ViewTapping(ViewStates.CreatePost,book);
+			
+			if (ModelState.IsValid)
+			{
+				db.Books.Add(book);
+				bool state = SaveDatabase(ViewStates.Create, book);
+				return RedirectToActionPermanent("Index");
+			}
 
-        public ActionResult Create()
-        {
-            ViewBag.SubjectID = new SelectList(db.Subjects, "SubjectID", "SubjectName");
-            return View();
-        }
+			GenerateDropdowns(book);
+			return View(book);
+		}
 
-        //
-        // POST: /Admin/Book/Create
+		public ActionResult Edit(int id = 0)
+		{
+			var book = db.Books.Find(id);
+			if (book == null)
+			{
+				return HttpNotFound();
+			}
+			GenerateDropdowns(book);
+			bool result = ViewTapping(ViewStates.Edit,book);
+			return View(book);
+		}
 
-        [HttpPost]
-        public ActionResult Create(Book book)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Books.Add(book);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+		[HttpPost]
+		public ActionResult Edit(Book book)
+		{
+			bool result = ViewTapping(ViewStates.EditPost,book);
 
-            ViewBag.SubjectID = new SelectList(db.Subjects, "SubjectID", "SubjectName", book.SubjectID);
-            return View(book);
-        }
+			if (ModelState.IsValid)
+			{
+				db.Entry(book).State = EntityState.Modified;
+				bool state = SaveDatabase(ViewStates.Edit, book);
+				return RedirectToActionPermanent("Index");
+			}
+			GenerateDropdowns(book);
+			return View(book);
+		}
 
-        //
-        // GET: /Admin/Book/Edit/5
+		[ActionName("Delete")]
+		public ActionResult DeleteConfirmed(int id)
+		{
+			var book = db.Books.Find(id);
+			if(book != null){
+				bool result = ViewTapping(ViewStates.DeletePost,book);
+				db.Books.Remove(book);
+			}
+			
+			bool state = SaveDatabase(ViewStates.Delete, book);
+			return RedirectToActionPermanent("Index");
+		}		
+		
+		public ActionResult Details(int id = 0)
+		{
 
-        public ActionResult Edit(int id = 0)
-        {
-            Book book = db.Books.Find(id);
-            if (book == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.SubjectID = new SelectList(db.Subjects, "SubjectID", "SubjectName", book.SubjectID);
-            return View(book);
-        }
+			var book = db.Books.Find(id);
+	
+			if (book == null)
+			{
+				return HttpNotFound();
+			}
+			GenerateDropdowns(book);
+			bool result = ViewTapping(ViewStates.Details, book);
+			return View(book);
+		}
 
-        //
-        // POST: /Admin/Book/Edit/5
+		bool ViewTapping(ViewStates view, Book book = null){
+			switch (view){
+				case ViewStates.Index:
+					break;
+				case ViewStates.Create:
+					break;
+				case ViewStates.CreatePost:
+					break;
+				case ViewStates.Edit:
+					break;
+				case ViewStates.EditPost:
+					break;
+				case ViewStates.Delete:
+					break;
+			}
+			return true;
+		}
 
-        [HttpPost]
-        public ActionResult Edit(Book book)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(book).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.SubjectID = new SelectList(db.Subjects, "SubjectID", "SubjectName", book.SubjectID);
-            return View(book);
-        }
+		enum ViewStates{
+			Index,
+			Create,
+			CreatePost,
+			Edit,
+			EditPost,
+			Details,
+			Delete,
+			DeletePost
+		}
 
-        //
-        // GET: /Admin/Book/Delete/5
+		bool SaveDatabase(ViewStates view, Book book = null){
+			// working those at HttpPost time.
+			switch (view){
+				case ViewStates.Create:
+					break;
+				case ViewStates.Edit:
+					break;
+				case ViewStates.Delete:
+					break;
+			}
 
-        public ActionResult Delete(int id = 0)
-        {
-            Book book = db.Books.Find(id);
-            if (book == null)
-            {
-                return HttpNotFound();
-            }
-            return View(book);
-        }
+			try	{
+				var changes = db.SaveChanges();
+				if(changes > 0){
+					return true;
+				}
+			} catch (Exception ex){
+				 throw new Exception("Message : " + ex.Message.ToString() + " Inner Message : " + ex.InnerException.Message.ToString());
+			}
+			return false;
+		}
 
-        //
-        // POST: /Admin/Book/Delete/5
 
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Book book = db.Books.Find(id);
-            db.Books.Remove(book);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
-    }
+		protected override void Dispose(bool disposing)
+		{
+			db.Dispose();
+			base.Dispose(disposing);
+		}
+	}
 }

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<UGE4.DbInfrastructure.Article>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Article";
 }
 
-<h2>Index</h2>
+<h2>Article</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create Article", "Create")
 </p>
 <table class="table table-hover">
     <tr>
@@ -24,7 +24,7 @@
             @Html.DisplayNameFor(model => model.NextArticleID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ChapterID)
+            @Html.DisplayNameFor(model => model.Chapter.TopicName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.VideoLink)
@@ -56,10 +56,10 @@
             @Html.DisplayFor(modelItem => item.NextArticleID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ChapterID)
+            @Html.DisplayFor(modelItem => item.Chapter.TopicName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.VideoLink)
+             @Html.Raw(item.VideoLink.Replace("height=\"315\"", "height=\"100\"").Replace("width=\"420\"", "width=\"200\""))
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Height)
@@ -72,8 +72,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ArticleID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ArticleID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ArticleID })
+            @Html.ActionLink("Delete", "Delete", new { id=item.ArticleID }, new {  onclick="return confirm('Are you sure you want to delete this(can't be retrive again)?')" })
         </td>
     </tr>
 }

@@ -9,121 +9,163 @@ using UGE4.DbInfrastructure;
 
 namespace UGE4.Areas.Admin.Controllers
 {
-    public class ChapterController : Controller
-    {
-        private UGEContext db = new UGEContext();
+	public class ChapterController : Controller
+	{
+		readonly UGEContext db = new UGEContext();
+		
+		void GenerateDropdowns(Chapter chapter = null){
+			var articles = db.Articles.Select(c => new { ArticleID = c.ArticleID , ArticleName = c.ArticleName} ).ToList();
+			var books = db.Books.Select(c => new { BookID = c.BookID , BookName = c.BookName} ).ToList();
 
-        //
-        // GET: /Admin/Chapter/
+			if(chapter == null) {	
+				ViewBag.MasterArticleID = new SelectList(articles, "ArticleID", "ArticleName");
+				ViewBag.BookID = new SelectList(books, "BookID", "BookName");
+			} else {
+				ViewBag.MasterArticleID = new SelectList(articles, "ArticleID", "ArticleName", chapter.MasterArticleID);
+				ViewBag.BookID = new SelectList(books, "BookID", "BookName", chapter.BookID);
+			} 
+		}
 
-        public ActionResult Index()
-        {
-            var chapters = db.Chapters.Include(c => c.Article).Include(c => c.Book);
-            return View(chapters.ToList());
-        }
+		
+		public ActionResult Index() {
+			bool result = ViewTapping(ViewStates.Index);
 
-        //
-        // GET: /Admin/Chapter/Details/5
+			var chapters = db.Chapters.Include(c => c.Article).Include(c => c.Book).ToList();
+			return View(chapters);
+		}
 
-        public ActionResult Details(int id = 0)
-        {
-            Chapter chapter = db.Chapters.Find(id);
-            if (chapter == null)
-            {
-                return HttpNotFound();
-            }
-            return View(chapter);
-        }
+		public ActionResult Create() {
+			GenerateDropdowns();
+			bool result = ViewTapping(ViewStates.Create);
+			return View();
+		}
 
-        //
-        // GET: /Admin/Chapter/Create
+		[HttpPost]
+		public ActionResult Create(Chapter chapter)
+		{
+			bool result = ViewTapping(ViewStates.CreatePost,chapter);
+			
+			if (ModelState.IsValid)
+			{
+				db.Chapters.Add(chapter);
+				bool state = SaveDatabase(ViewStates.Create, chapter);
+				return RedirectToActionPermanent("Index");
+			}
 
-        public ActionResult Create()
-        {
-            ViewBag.MasterArticleID = new SelectList(db.Articles, "ArticleID", "ArticleName");
-            ViewBag.BookID = new SelectList(db.Books, "BookID", "BookName");
-            return View();
-        }
+			GenerateDropdowns(chapter);
+			return View(chapter);
+		}
 
-        //
-        // POST: /Admin/Chapter/Create
+		public ActionResult Edit(int id = 0)
+		{
+			var chapter = db.Chapters.Find(id);
+			if (chapter == null)
+			{
+				return HttpNotFound();
+			}
+			GenerateDropdowns(chapter);
+			bool result = ViewTapping(ViewStates.Edit,chapter);
+			return View(chapter);
+		}
 
-        [HttpPost]
-        public ActionResult Create(Chapter chapter)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Chapters.Add(chapter);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+		[HttpPost]
+		public ActionResult Edit(Chapter chapter)
+		{
+			bool result = ViewTapping(ViewStates.EditPost,chapter);
 
-            ViewBag.MasterArticleID = new SelectList(db.Articles, "ArticleID", "ArticleName", chapter.MasterArticleID);
-            ViewBag.BookID = new SelectList(db.Books, "BookID", "BookName", chapter.BookID);
-            return View(chapter);
-        }
+			if (ModelState.IsValid)
+			{
+				db.Entry(chapter).State = EntityState.Modified;
+				bool state = SaveDatabase(ViewStates.Edit, chapter);
+				return RedirectToActionPermanent("Index");
+			}
+			GenerateDropdowns(chapter);
+			return View(chapter);
+		}
 
-        //
-        // GET: /Admin/Chapter/Edit/5
+		[ActionName("Delete")]
+		public ActionResult DeleteConfirmed(int id)
+		{
+			var chapter = db.Chapters.Find(id);
+			if(chapter != null){
+				bool result = ViewTapping(ViewStates.DeletePost,chapter);
+				db.Chapters.Remove(chapter);
+			}
+			
+			bool state = SaveDatabase(ViewStates.Delete, chapter);
+			return RedirectToActionPermanent("Index");
+		}		
+		
+		public ActionResult Details(int id = 0)
+		{
 
-        public ActionResult Edit(int id = 0)
-        {
-            Chapter chapter = db.Chapters.Find(id);
-            if (chapter == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.MasterArticleID = new SelectList(db.Articles, "ArticleID", "ArticleName", chapter.MasterArticleID);
-            ViewBag.BookID = new SelectList(db.Books, "BookID", "BookName", chapter.BookID);
-            return View(chapter);
-        }
+			var chapter = db.Chapters.Find(id);
+	
+			if (chapter == null)
+			{
+				return HttpNotFound();
+			}
+			GenerateDropdowns(chapter);
+			bool result = ViewTapping(ViewStates.Details, chapter);
+			return View(chapter);
+		}
 
-        //
-        // POST: /Admin/Chapter/Edit/5
+		bool ViewTapping(ViewStates view, Chapter chapter = null){
+			switch (view){
+				case ViewStates.Index:
+					break;
+				case ViewStates.Create:
+					break;
+				case ViewStates.CreatePost:
+					break;
+				case ViewStates.Edit:
+					break;
+				case ViewStates.EditPost:
+					break;
+				case ViewStates.Delete:
+					break;
+			}
+			return true;
+		}
 
-        [HttpPost]
-        public ActionResult Edit(Chapter chapter)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(chapter).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.MasterArticleID = new SelectList(db.Articles, "ArticleID", "ArticleName", chapter.MasterArticleID);
-            ViewBag.BookID = new SelectList(db.Books, "BookID", "BookName", chapter.BookID);
-            return View(chapter);
-        }
+		enum ViewStates{
+			Index,
+			Create,
+			CreatePost,
+			Edit,
+			EditPost,
+			Details,
+			Delete,
+			DeletePost
+		}
 
-        //
-        // GET: /Admin/Chapter/Delete/5
+		bool SaveDatabase(ViewStates view, Chapter chapter = null){
+			// working those at HttpPost time.
+			switch (view){
+				case ViewStates.Create:
+					break;
+				case ViewStates.Edit:
+					break;
+				case ViewStates.Delete:
+					break;
+			}
 
-        public ActionResult Delete(int id = 0)
-        {
-            Chapter chapter = db.Chapters.Find(id);
-            if (chapter == null)
-            {
-                return HttpNotFound();
-            }
-            return View(chapter);
-        }
+			try	{
+				var changes = db.SaveChanges();
+				if(changes > 0){
+					return true;
+				}
+			} catch (Exception ex){
+				 throw new Exception("Message : " + ex.Message.ToString() + " Inner Message : " + ex.InnerException.Message.ToString());
+			}
+			return false;
+		}
 
-        //
-        // POST: /Admin/Chapter/Delete/5
 
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Chapter chapter = db.Chapters.Find(id);
-            db.Chapters.Remove(chapter);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
-    }
+		protected override void Dispose(bool disposing)
+		{
+			db.Dispose();
+			base.Dispose(disposing);
+		}
+	}
 }
