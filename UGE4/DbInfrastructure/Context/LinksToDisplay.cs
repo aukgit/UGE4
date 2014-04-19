@@ -11,14 +11,26 @@ namespace UGE4.DbInfrastructure
 {
     using System;
     using System.Collections.Generic;
+      using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class LinksToDisplay
     {
-        public long LinksToDisplayID { get; set; }
-        public long ArticleID { get; set; }
-        public int ChapterID { get; set; }
+              [DisplayName("Links To Display ID")]      
+      public long LinksToDisplayID { get; set; }
+        
+              [DisplayName("Article ID")]      
+      [Required]
+public long ArticleID { get; set; }
+        
+              [DisplayName("Chapter ID")]      
+      [Required]
+public int ChapterID { get; set; }
     
-        public virtual Article Article { get; set; }
-        public virtual Chapter Chapter { get; set; }
+              [DisplayName("Articles")]      
+      public virtual Article Article { get; set; }
+        
+              [DisplayName("Chapters")]      
+      public virtual Chapter Chapter { get; set; }
     }
 }

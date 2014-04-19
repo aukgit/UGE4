@@ -11,16 +11,34 @@ namespace UGE4.DbInfrastructure
 {
     using System;
     using System.Collections.Generic;
+      using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class WishList
     {
-        public long WishListID { get; set; }
-        public int UserID { get; set; }
-        public long ArticleID { get; set; }
-        public System.DateTime Dated { get; set; }
-        public System.DateTime LastNotified { get; set; }
+              [DisplayName("WishList ID")]      
+      public long WishListID { get; set; }
+        
+              [DisplayName("User ID")]      
+      [Required]
+public int UserID { get; set; }
+        
+              [DisplayName("Article ID")]      
+        [Required]
+public long ArticleID { get; set; }
+        
+              [DisplayName("Dated")]      
+      [Required]
+public System.DateTime Dated { get; set; }
+        
+              [DisplayName("Last Notified")]      
+      [Required]
+public System.DateTime LastNotified { get; set; }
     
-        public virtual Article Article { get; set; }
-        public virtual User User { get; set; }
+              [DisplayName("Articles")]      
+      public virtual Article Article { get; set; }
+        
+              [DisplayName("Users")]      
+      public virtual User User { get; set; }
     }
 }

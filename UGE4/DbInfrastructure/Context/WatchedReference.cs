@@ -11,14 +11,26 @@ namespace UGE4.DbInfrastructure
 {
     using System;
     using System.Collections.Generic;
+      using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class WatchedReference
     {
-        public long WatchedReferenceID { get; set; }
-        public long WhichFromArticleID { get; set; }
-        public long WhichToArticleID { get; set; }
+              [DisplayName("Watched Reference ID")]      
+      public long WatchedReferenceID { get; set; }
+        
+              [DisplayName("From (Article)")]      
+      [Required]
+public long WhichFromArticleID { get; set; }
+        
+              [DisplayName("To (Article)")]      
+      [Required]
+public long WhichToArticleID { get; set; }
     
+        [DisplayName("Articles")]      
         public virtual Article Article { get; set; }
+        
+        [DisplayName("Articles1")]      
         public virtual Article Article1 { get; set; }
     }
 }

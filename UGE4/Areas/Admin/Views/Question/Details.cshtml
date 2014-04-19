@@ -1,0 +1,43 @@
+﻿@model UGE4.DbInfrastructure.Question
+
+@{
+    ViewBag.Title = "Question - Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Question</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Hint)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Hint)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AnswerChoiceID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AnswerChoiceID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.QuestionDisplay)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.QuestionDisplay)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MCQ.Title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MCQ.Title)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.QuestionID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

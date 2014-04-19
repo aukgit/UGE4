@@ -11,14 +11,30 @@ namespace UGE4.DbInfrastructure
 {
     using System;
     using System.Collections.Generic;
+      using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Bookmark
     {
-        public long BookmarkID { get; set; }
-        public int UserID { get; set; }
-        public long ArticleID { get; set; }
+        [DisplayName("Bookmark ID")]      
+    [StringLength(150)]
+    [Required]
+public long BookmarkID { get; set; }
+        
+        [DisplayName("User ID")]      
+    [StringLength(150)]
+    [Required]
+public int UserID { get; set; }
+        
+        [DisplayName("Article ID")]      
+    [StringLength(150)]
+    [Required]
+public long ArticleID { get; set; }
     
-        public virtual Article Article { get; set; }
-        public virtual User User { get; set; }
+        [DisplayName("Articles")]      
+    public virtual Article Article { get; set; }
+        
+        [DisplayName("Users")]      
+    public virtual User User { get; set; }
     }
 }

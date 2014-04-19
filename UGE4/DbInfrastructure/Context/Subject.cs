@@ -11,6 +11,8 @@ namespace UGE4.DbInfrastructure
 {
     using System;
     using System.Collections.Generic;
+      using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Subject
     {
@@ -19,9 +21,15 @@ namespace UGE4.DbInfrastructure
             this.Books = new HashSet<Book>();
         }
     
-        public byte SubjectID { get; set; }
-        public string SubjectName { get; set; }
+              [DisplayName("Subject ID")]      
+      public byte SubjectID { get; set; }
+        
+              [DisplayName("Subject Name")]      
+      [StringLength(50)]
+      [Required]
+public string SubjectName { get; set; }
     
-        public virtual ICollection<Book> Books { get; set; }
+              [DisplayName("Books")]      
+      public virtual ICollection<Book> Books { get; set; }
     }
 }

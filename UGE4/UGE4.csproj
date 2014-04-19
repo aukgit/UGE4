@@ -185,6 +185,7 @@
     <Compile Include="Areas\Admin\Controllers\MCQController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Admin\Controllers\QuestionController.cs" />
     <Compile Include="Areas\Admin\Controllers\SubjectController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -392,6 +393,11 @@
     <Content Include="Areas\Admin\Views\Book\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Book\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Book\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Question\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Question\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Question\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Question\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Question\Delete.cshtml" />
     <None Include="CodeTemplates\AddController\Controller.tt" />
     <None Include="CodeTemplates\AddController\ControllerWithContext.tt" />
     <None Include="CodeTemplates\AddView\CSHTML\Create.tt" />

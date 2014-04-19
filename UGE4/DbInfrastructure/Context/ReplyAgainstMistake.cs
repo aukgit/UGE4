@@ -11,6 +11,8 @@ namespace UGE4.DbInfrastructure
 {
     using System;
     using System.Collections.Generic;
+      using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class ReplyAgainstMistake
     {
@@ -19,15 +21,36 @@ namespace UGE4.DbInfrastructure
             this.ReplyAgainstMistake1 = new HashSet<ReplyAgainstMistake>();
         }
     
-        public long ReplyAgainstMistakeID { get; set; }
-        public long ArticleMistakeID { get; set; }
-        public int RepliedByWhomID { get; set; }
-        public string Reply { get; set; }
-        public long LinkedReplyMistakeID { get; set; }
+              [DisplayName("Reply Against Mistake ID")]      
+      public long ReplyAgainstMistakeID { get; set; }
+
+              [DisplayName("Article Mistake")]      
+      [Required]
+public long ArticleMistakeID { get; set; }
+        
+              [DisplayName("Replied By")]      
+      [Required]
+public int RepliedByWhomID { get; set; }
+        
+              [DisplayName("Reply")]      
+      [StringLength(800)]
+      [Required]
+public string Reply { get; set; }
+        
+              [DisplayName("Linked Reply Mistake ID")]      
+      [Required]
+public long LinkedReplyMistakeID { get; set; }
     
-        public virtual ArticleMistake ArticleMistake { get; set; }
-        public virtual ICollection<ReplyAgainstMistake> ReplyAgainstMistake1 { get; set; }
-        public virtual ReplyAgainstMistake ReplyAgainstMistake2 { get; set; }
-        public virtual User User { get; set; }
+              [DisplayName("Article Mistakes")]      
+      public virtual ArticleMistake ArticleMistake { get; set; }
+        
+              [DisplayName("Reply Against Mistake1")]      
+      public virtual ICollection<ReplyAgainstMistake> ReplyAgainstMistake1 { get; set; }
+        
+      [DisplayName("Reply Against Mistake2")]      
+      public virtual ReplyAgainstMistake ReplyAgainstMistake2 { get; set; }
+        
+              [DisplayName("Users")]      
+      public virtual User User { get; set; }
     }
 }

@@ -11,18 +11,43 @@ namespace UGE4.DbInfrastructure
 {
     using System;
     using System.Collections.Generic;
+      using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Rating
     {
-        public long RatingID { get; set; }
-        public long ArticleID { get; set; }
-        public int UserID { get; set; }
-        public byte VideoQualtiy { get; set; }
-        public byte TechingTechnique { get; set; }
-        public byte Mateials { get; set; }
-        public double AvgRating { get; set; }
+        
+              [DisplayName("Rating ID")]      
+      public long RatingID { get; set; }
+        
+              [DisplayName("Article ID")]      
+      [Required]
+public long ArticleID { get; set; }
+        
+      [DisplayName("User ID")]      
+      [Required]
+public int UserID { get; set; }
+        
+      [DisplayName("Video Qualtiy")]      
+      [Required]
+public byte VideoQualtiy { get; set; }
+        
+      [DisplayName("Techinques")]      
+      [Required]
+public byte TechingTechnique { get; set; }
+        
+              [DisplayName("Mateials")]      
+      [Required]
+public byte Mateials { get; set; }
+        
+              [DisplayName("Average Rating")]      
+      [Required]
+public double AvgRating { get; set; }
     
-        public virtual Article Article { get; set; }
-        public virtual User User { get; set; }
+              [DisplayName("Articles")]      
+      public virtual Article Article { get; set; }
+        
+              [DisplayName("Users")]      
+      public virtual User User { get; set; }
     }
 }

@@ -1310,7 +1310,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="UgeModel">
+      <Diagram Name="UgeModel" ZoomLevel="113">
         <EntityTypeShape EntityType="UGEContextEntities.Article" Width="1.5" PointX="7.5" PointY="9.75" Height="4.8648079427083388" />
         <EntityTypeShape EntityType="UGEContextEntities.ArticleMistake" Width="1.5" PointX="9.75" PointY="11" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="UGEContextEntities.Book" Width="1.5" PointX="3" PointY="11.25" Height="1.9802864583333388" />

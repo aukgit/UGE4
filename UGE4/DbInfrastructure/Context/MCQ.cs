@@ -11,6 +11,8 @@ namespace UGE4.DbInfrastructure
 {
     using System;
     using System.Collections.Generic;
+      using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class MCQ
     {
@@ -19,13 +21,30 @@ namespace UGE4.DbInfrastructure
             this.Questions = new HashSet<Question>();
         }
     
-        public int MCQID { get; set; }
-        public short Duration { get; set; }
-        public long ArticleID { get; set; }
-        public string Title { get; set; }
-        public int DisplayQuestion { get; set; }
+              [DisplayName("MCQ ID")]      
+      public int MCQID { get; set; }
+        
+              [DisplayName("Duration")]      
+      [Required]
+public short Duration { get; set; }
+        
+              [DisplayName("Article ID")]      
+      [Required]
+public long ArticleID { get; set; }
+        
+              [DisplayName("Title")]      
+      [StringLength(150)]
+      [Required]
+public string Title { get; set; }
+        
+              [DisplayName("Display Question")]      
+      [Required]
+public int DisplayQuestion { get; set; }
     
-        public virtual Article Article { get; set; }
-        public virtual ICollection<Question> Questions { get; set; }
+              [DisplayName("Articles")]      
+      public virtual Article Article { get; set; }
+        
+              [DisplayName("Questions")]      
+          public virtual ICollection<Question> Questions { get; set; }
     }
 }

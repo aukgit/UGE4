@@ -11,6 +11,8 @@ namespace UGE4.DbInfrastructure
 {
     using System;
     using System.Collections.Generic;
+      using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Question
     {
@@ -19,13 +21,30 @@ namespace UGE4.DbInfrastructure
             this.Choices = new HashSet<Choice>();
         }
     
-        public long QuestionID { get; set; }
-        public string Hint { get; set; }
-        public long AnswerChoiceID { get; set; }
-        public string QuestionDisplay { get; set; }
-        public int MCQID { get; set; }
+              [DisplayName("Question ID")]      
+      public long QuestionID { get; set; }
+        
+              [DisplayName("Hint")]      
+      [StringLength(200)]
+     public string Hint { get; set; }
+        
+              [DisplayName("AnswerChoice ID")]      
+      [Required]
+public long AnswerChoiceID { get; set; }
+        
+              [DisplayName("Question Display")]      
+      [StringLength(800)]
+      [Required]
+public string QuestionDisplay { get; set; }
+        
+              [DisplayName("MCQ ID")]      
+      [Required]
+public int MCQID { get; set; }
     
-        public virtual ICollection<Choice> Choices { get; set; }
-        public virtual MCQ MCQ { get; set; }
+              [DisplayName("Choices")]      
+      public virtual ICollection<Choice> Choices { get; set; }
+        
+              [DisplayName("MCQs")]      
+      public virtual MCQ MCQ { get; set; }
     }
 }

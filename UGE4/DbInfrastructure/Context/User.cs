@@ -11,6 +11,8 @@ namespace UGE4.DbInfrastructure
 {
     using System;
     using System.Collections.Generic;
+      using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class User
     {
@@ -23,13 +25,27 @@ namespace UGE4.DbInfrastructure
             this.WishLists = new HashSet<WishList>();
         }
     
-        public int UserID { get; set; }
-        public string LogName { get; set; }
+              [DisplayName("User ID")]      
+      public int UserID { get; set; }
+        
+              [DisplayName("Login Name")]      
+      [StringLength(50)]
+      [Required]
+public string LogName { get; set; }
     
-        public virtual ICollection<ArticleMistake> ArticleMistakes { get; set; }
-        public virtual ICollection<Bookmark> Bookmarks { get; set; }
-        public virtual ICollection<Rating> Ratings { get; set; }
-        public virtual ICollection<ReplyAgainstMistake> ReplyAgainstMistakes { get; set; }
-        public virtual ICollection<WishList> WishLists { get; set; }
+              [DisplayName("Article Name")]      
+      public virtual ICollection<ArticleMistake> ArticleMistakes { get; set; }
+        
+              [DisplayName("Bookmarks")]      
+      public virtual ICollection<Bookmark> Bookmarks { get; set; }
+        
+              [DisplayName("Ratings")]      
+      public virtual ICollection<Rating> Ratings { get; set; }
+        
+              [DisplayName("Reply Against Mistakes")]      
+      public virtual ICollection<ReplyAgainstMistake> ReplyAgainstMistakes { get; set; }
+        
+              [DisplayName("Wish Lists")]      
+      public virtual ICollection<WishList> WishLists { get; set; }
     }
 }

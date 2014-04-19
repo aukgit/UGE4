@@ -11,13 +11,24 @@ namespace UGE4.DbInfrastructure
 {
     using System;
     using System.Collections.Generic;
+      using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Choice
     {
-        public long ChoiceID { get; set; }
-        public long QuestionID { get; set; }
-        public string ChoiceDisplay { get; set; }
+              [DisplayName("Choice ID")]      
+              public long ChoiceID { get; set; }
+        
+              [DisplayName("Question ID")]      
+      [Required]
+public long QuestionID { get; set; }
+        
+              [DisplayName("Choice Display")]      
+      [StringLength(500)]
+      [Required]
+public string ChoiceDisplay { get; set; }
     
-        public virtual Question Question { get; set; }
+              [DisplayName("Questions")]      
+      public virtual Question Question { get; set; }
     }
 }

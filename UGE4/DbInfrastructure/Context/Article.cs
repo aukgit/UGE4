@@ -12,6 +12,8 @@ namespace UGE4.DbInfrastructure
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Article
     {
@@ -28,15 +30,41 @@ namespace UGE4.DbInfrastructure
             this.WishLists = new HashSet<WishList>();
         }
     
+        [DisplayName("Article ID")]        
         public long ArticleID { get; set; }
+        
+        [DisplayName("Article Name")]      
+        [StringLength(150)]
+        [Required]
         public string ArticleName { get; set; }
+        
+        [DisplayName("Description")]      
+        [StringLength(800)]
+        [Required]
         public string Description { get; set; }
+        
+        [DisplayName("Previous Article ID")]      
         public Nullable<long> PreviousArticleID { get; set; }
+        
+        [DisplayName("Next Article ID")]      
         public Nullable<long> NextArticleID { get; set; }
+        
+        [DisplayName("Chapter ID")]      
         public int ChapterID { get; set; }
+        
+        [DisplayName("Video Embed HTML")]      
+        [Required]
         public string VideoLink { get; set; }
+        
+        [DisplayName("Height")]      
+        [Required]
         public short Height { get; set; }
+        
+        [DisplayName("Width")]      
+        [Required]
         public short Width { get; set; }
+        [DisplayName("Average Rating")]      
+        [Required]
         public double AvgRating { get; set; }
     
         public virtual Chapter Chapter { get; set; }

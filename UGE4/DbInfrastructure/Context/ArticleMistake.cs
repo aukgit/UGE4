@@ -11,6 +11,8 @@ namespace UGE4.DbInfrastructure
 {
     using System;
     using System.Collections.Generic;
+      using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class ArticleMistake
     {
@@ -19,13 +21,28 @@ namespace UGE4.DbInfrastructure
             this.ReplyAgainstMistakes = new HashSet<ReplyAgainstMistake>();
         }
     
+        [DisplayName("Article Mistake ID")]      
         public long ArticleMistakeID { get; set; }
+        
+        [DisplayName("User ID")]      
+        [Required]
         public int UserID { get; set; }
+        
+        [DisplayName("Article ID")]      
+        [Required]
         public long ArticleID { get; set; }
+        
+        [DisplayName("Submited Dated")]      
+        [Required]
         public System.DateTime SubmitedDated { get; set; }
     
+        [DisplayName("Articles")]      
         public virtual Article Article { get; set; }
+        
+        [DisplayName("Users")]      
         public virtual User User { get; set; }
+            
+        [DisplayName("Reply Against Mistakes")]      
         public virtual ICollection<ReplyAgainstMistake> ReplyAgainstMistakes { get; set; }
     }
 }
