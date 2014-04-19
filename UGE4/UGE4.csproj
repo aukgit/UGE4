@@ -164,87 +164,36 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\ArticleController.cs" />
-    <Compile Include="Areas\Admin\Controllers\BookController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ChapterController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ChoiceController.cs" />
-    <Compile Include="Areas\Admin\Controllers\LinksToDisplayController.cs" />
-    <Compile Include="Areas\Admin\Controllers\MCQController.cs" />
-    <Compile Include="Areas\Admin\Controllers\QuestionController.cs" />
     <Compile Include="Areas\Admin\Controllers\SubjectController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Entities.cs" />
+    <Compile Include="DbInfrastructure\Context\Article.cs" />
+    <Compile Include="DbInfrastructure\Context\ArticleMistake.cs" />
+    <Compile Include="DbInfrastructure\Context\Book.cs" />
+    <Compile Include="DbInfrastructure\Context\Bookmark.cs" />
+    <Compile Include="DbInfrastructure\Context\Chapter.cs" />
+    <Compile Include="DbInfrastructure\Context\Choice.cs" />
+    <Compile Include="DbInfrastructure\Context\LinksToDisplay.cs" />
+    <Compile Include="DbInfrastructure\Context\MCQ.cs" />
+    <Compile Include="DbInfrastructure\Context\Model1.Context.cs" />
+    <Compile Include="DbInfrastructure\Context\Question.cs" />
+    <Compile Include="DbInfrastructure\Context\Rating.cs" />
+    <Compile Include="DbInfrastructure\Context\ReplyAgainstMistake.cs" />
+    <Compile Include="DbInfrastructure\Context\Subject.cs" />
+    <Compile Include="DbInfrastructure\Context\sysdiagram.cs" />
+    <Compile Include="DbInfrastructure\Context\User.cs" />
+    <Compile Include="DbInfrastructure\Context\UserProfile.cs" />
+    <Compile Include="DbInfrastructure\Context\WatchedReference.cs" />
+    <Compile Include="DbInfrastructure\Context\WishList.cs" />
+    <Compile Include="DbInfrastructure\UgeModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UgeModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\Article.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ArticleMistake.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Book.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Bookmark.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Chapter.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Choice.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\LinksToDisplay.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MCQ.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Question.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Rating.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ReplyAgainstMistake.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Subject.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserProfile.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\WatchedReference.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\WishList.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -369,7 +318,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="DbInfrastructure\" />
     <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>
@@ -389,62 +337,17 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\Chapter\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Chapter\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Chapter\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Chapter\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Chapter\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Book\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Book\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Book\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Book\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Book\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Subject\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Subject\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Subject\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Subject\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Subject\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Article\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Article\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Article\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Article\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Article\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\MCQ\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\MCQ\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\MCQ\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\MCQ\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\MCQ\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Question\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Question\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Question\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Question\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Question\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\LinksToDisplay\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\LinksToDisplay\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\LinksToDisplay\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\LinksToDisplay\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\LinksToDisplay\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Choice\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Choice\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Choice\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Choice\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Choice\Delete.cshtml" />
     <None Include="Content\bootstrap-theme.css.map" />
     <None Include="Content\bootstrap.css.map" />
-    <None Include="Models\Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </None>
-    <None Include="Models\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </None>
+    <EntityDeploy Include="DbInfrastructure\UgeModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>UgeModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

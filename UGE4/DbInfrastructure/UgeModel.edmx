@@ -1,0 +1,1378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="UGEContextEntities.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="UGEContextEntitiesStoreContainer">
+          <EntitySet Name="Article" EntityType="UGEContextEntities.Store.Article" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ArticleMistake" EntityType="UGEContextEntities.Store.ArticleMistake" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Book" EntityType="UGEContextEntities.Store.Book" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Bookmark" EntityType="UGEContextEntities.Store.Bookmark" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Chapter" EntityType="UGEContextEntities.Store.Chapter" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Choice" EntityType="UGEContextEntities.Store.Choice" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LinksToDisplay" EntityType="UGEContextEntities.Store.LinksToDisplay" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MCQ" EntityType="UGEContextEntities.Store.MCQ" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Question" EntityType="UGEContextEntities.Store.Question" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Rating" EntityType="UGEContextEntities.Store.Rating" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ReplyAgainstMistake" EntityType="UGEContextEntities.Store.ReplyAgainstMistake" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Subject" EntityType="UGEContextEntities.Store.Subject" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="UGEContextEntities.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="User" EntityType="UGEContextEntities.Store.User" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfile" EntityType="UGEContextEntities.Store.UserProfile" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WatchedReference" EntityType="UGEContextEntities.Store.WatchedReference" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WishList" EntityType="UGEContextEntities.Store.WishList" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_ArticleMistake_Article" Association="UGEContextEntities.Store.FK_ArticleMistake_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="ArticleMistake" EntitySet="ArticleMistake" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ArticleMistake_User" Association="UGEContextEntities.Store.FK_ArticleMistake_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ArticleMistake" EntitySet="ArticleMistake" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_Subject" Association="UGEContextEntities.Store.FK_Book_Subject">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bookmark_Article" Association="UGEContextEntities.Store.FK_Bookmark_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Bookmark" EntitySet="Bookmark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bookmark_User" Association="UGEContextEntities.Store.FK_Bookmark_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Bookmark" EntitySet="Bookmark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chapter_Article" Association="UGEContextEntities.Store.FK_Chapter_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Chapter" EntitySet="Chapter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chapter_Book" Association="UGEContextEntities.Store.FK_Chapter_Book">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="Chapter" EntitySet="Chapter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Choice_Question" Association="UGEContextEntities.Store.FK_Choice_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="Choice" EntitySet="Choice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinksToDisplay_Article" Association="UGEContextEntities.Store.FK_LinksToDisplay_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="LinksToDisplay" EntitySet="LinksToDisplay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinksToDisplay_Chapter" Association="UGEContextEntities.Store.FK_LinksToDisplay_Chapter">
+            <End Role="Chapter" EntitySet="Chapter" />
+            <End Role="LinksToDisplay" EntitySet="LinksToDisplay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MCQ_Article" Association="UGEContextEntities.Store.FK_MCQ_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="MCQ" EntitySet="MCQ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_MCQ" Association="UGEContextEntities.Store.FK_Question_MCQ">
+            <End Role="MCQ" EntitySet="MCQ" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_Article" Association="UGEContextEntities.Store.FK_Rating_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_User" Association="UGEContextEntities.Store.FK_Rating_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReplyAgainstMistake_ArticleMistake" Association="UGEContextEntities.Store.FK_ReplyAgainstMistake_ArticleMistake">
+            <End Role="ArticleMistake" EntitySet="ArticleMistake" />
+            <End Role="ReplyAgainstMistake" EntitySet="ReplyAgainstMistake" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReplyAgainstMistake_ReplyAgainstMistake" Association="UGEContextEntities.Store.FK_ReplyAgainstMistake_ReplyAgainstMistake">
+            <End Role="ReplyAgainstMistake" EntitySet="ReplyAgainstMistake" />
+            <End Role="ReplyAgainstMistake1" EntitySet="ReplyAgainstMistake" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReplyAgainstMistake_User" Association="UGEContextEntities.Store.FK_ReplyAgainstMistake_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ReplyAgainstMistake" EntitySet="ReplyAgainstMistake" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WatchedReference_Article" Association="UGEContextEntities.Store.FK_WatchedReference_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="WatchedReference" EntitySet="WatchedReference" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WatchedReference_Article1" Association="UGEContextEntities.Store.FK_WatchedReference_Article1">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="WatchedReference" EntitySet="WatchedReference" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishList_Article" Association="UGEContextEntities.Store.FK_WishList_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="WishList" EntitySet="WishList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishList_User" Association="UGEContextEntities.Store.FK_WishList_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="WishList" EntitySet="WishList" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="ArticleID" />
+          </Key>
+          <Property Name="ArticleID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleName" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="800" />
+          <Property Name="PreviousArticleID" Type="bigint" />
+          <Property Name="NextArticleID" Type="bigint" />
+          <Property Name="ChapterID" Type="int" Nullable="false" />
+          <Property Name="VideoLink" Type="varchar" Nullable="false" MaxLength="800" />
+          <Property Name="Height" Type="smallint" Nullable="false" />
+          <Property Name="Width" Type="smallint" Nullable="false" />
+          <Property Name="AvgRating" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ArticleMistake">
+          <Key>
+            <PropertyRef Name="ArticleMistakeID" />
+          </Key>
+          <Property Name="ArticleMistakeID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ArticleID" Type="bigint" Nullable="false" />
+          <Property Name="SubmitedDated" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="BookID" />
+          </Key>
+          <Property Name="BookID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectID" Type="tinyint" Nullable="false" />
+          <Property Name="BookName" Type="varchar" Nullable="false" MaxLength="80" />
+        </EntityType>
+        <EntityType Name="Bookmark">
+          <Key>
+            <PropertyRef Name="BookmarkID" />
+          </Key>
+          <Property Name="BookmarkID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ArticleID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Chapter">
+          <Key>
+            <PropertyRef Name="ChapterID" />
+          </Key>
+          <Property Name="ChapterID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BookID" Type="int" Nullable="false" />
+          <Property Name="TopicName" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="TotalArticles" Type="int" Nullable="false" />
+          <Property Name="MasterArticleID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Choice">
+          <Key>
+            <PropertyRef Name="ChoiceID" />
+          </Key>
+          <Property Name="ChoiceID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionID" Type="bigint" Nullable="false" />
+          <Property Name="ChoiceDisplay" Type="varchar" Nullable="false" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="LinksToDisplay">
+          <Key>
+            <PropertyRef Name="LinksToDisplayID" />
+          </Key>
+          <Property Name="LinksToDisplayID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleID" Type="bigint" Nullable="false" />
+          <Property Name="ChapterID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MCQ">
+          <Key>
+            <PropertyRef Name="MCQID" />
+          </Key>
+          <Property Name="MCQID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Duration" Type="smallint" Nullable="false" />
+          <Property Name="ArticleID" Type="bigint" Nullable="false" />
+          <Property Name="Title" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="DisplayQuestion" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Hint" Type="varchar" MaxLength="200" />
+          <Property Name="AnswerChoiceID" Type="bigint" Nullable="false" />
+          <Property Name="QuestionDisplay" Type="varchar" Nullable="false" MaxLength="800" />
+          <Property Name="MCQID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="RatingID" />
+          </Key>
+          <Property Name="RatingID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleID" Type="bigint" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="VideoQualtiy" Type="tinyint" Nullable="false" />
+          <Property Name="TechingTechnique" Type="tinyint" Nullable="false" />
+          <Property Name="Mateials" Type="tinyint" Nullable="false" />
+          <Property Name="AvgRating" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReplyAgainstMistake">
+          <Key>
+            <PropertyRef Name="ReplyAgainstMistakeID" />
+          </Key>
+          <Property Name="ReplyAgainstMistakeID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleMistakeID" Type="bigint" Nullable="false" />
+          <Property Name="RepliedByWhomID" Type="int" Nullable="false" />
+          <Property Name="Reply" Type="varchar" Nullable="false" MaxLength="800" />
+          <Property Name="LinkedReplyMistakeID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="tinyint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectName" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LogName" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="56" />
+        </EntityType>
+        <EntityType Name="WatchedReference">
+          <Key>
+            <PropertyRef Name="WatchedReferenceID" />
+          </Key>
+          <Property Name="WatchedReferenceID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="WhichFromArticleID" Type="bigint" Nullable="false" />
+          <Property Name="WhichToArticleID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WishList">
+          <Key>
+            <PropertyRef Name="WishListID" />
+          </Key>
+          <Property Name="WishListID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ArticleID" Type="bigint" Nullable="false" />
+          <Property Name="Dated" Type="date" Nullable="false" />
+          <Property Name="LastNotified" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ArticleMistake_Article">
+          <End Role="Article" Type="UGEContextEntities.Store.Article" Multiplicity="1" />
+          <End Role="ArticleMistake" Type="UGEContextEntities.Store.ArticleMistake" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="ArticleMistake">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ArticleMistake_User">
+          <End Role="User" Type="UGEContextEntities.Store.User" Multiplicity="1" />
+          <End Role="ArticleMistake" Type="UGEContextEntities.Store.ArticleMistake" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ArticleMistake">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_Subject">
+          <End Role="Subject" Type="UGEContextEntities.Store.Subject" Multiplicity="1" />
+          <End Role="Book" Type="UGEContextEntities.Store.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bookmark_Article">
+          <End Role="Article" Type="UGEContextEntities.Store.Article" Multiplicity="1" />
+          <End Role="Bookmark" Type="UGEContextEntities.Store.Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bookmark_User">
+          <End Role="User" Type="UGEContextEntities.Store.User" Multiplicity="1" />
+          <End Role="Bookmark" Type="UGEContextEntities.Store.Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chapter_Article">
+          <End Role="Article" Type="UGEContextEntities.Store.Article" Multiplicity="1" />
+          <End Role="Chapter" Type="UGEContextEntities.Store.Chapter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="Chapter">
+              <PropertyRef Name="MasterArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chapter_Book">
+          <End Role="Book" Type="UGEContextEntities.Store.Book" Multiplicity="1" />
+          <End Role="Chapter" Type="UGEContextEntities.Store.Chapter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="BookID" />
+            </Principal>
+            <Dependent Role="Chapter">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Choice_Question">
+          <End Role="Question" Type="UGEContextEntities.Store.Question" Multiplicity="1" />
+          <End Role="Choice" Type="UGEContextEntities.Store.Choice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="Choice">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinksToDisplay_Article">
+          <End Role="Article" Type="UGEContextEntities.Store.Article" Multiplicity="1" />
+          <End Role="LinksToDisplay" Type="UGEContextEntities.Store.LinksToDisplay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="LinksToDisplay">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinksToDisplay_Chapter">
+          <End Role="Chapter" Type="UGEContextEntities.Store.Chapter" Multiplicity="1" />
+          <End Role="LinksToDisplay" Type="UGEContextEntities.Store.LinksToDisplay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chapter">
+              <PropertyRef Name="ChapterID" />
+            </Principal>
+            <Dependent Role="LinksToDisplay">
+              <PropertyRef Name="ChapterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MCQ_Article">
+          <End Role="Article" Type="UGEContextEntities.Store.Article" Multiplicity="1" />
+          <End Role="MCQ" Type="UGEContextEntities.Store.MCQ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="MCQ">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_MCQ">
+          <End Role="MCQ" Type="UGEContextEntities.Store.MCQ" Multiplicity="1" />
+          <End Role="Question" Type="UGEContextEntities.Store.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MCQ">
+              <PropertyRef Name="MCQID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="MCQID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rating_Article">
+          <End Role="Article" Type="UGEContextEntities.Store.Article" Multiplicity="1" />
+          <End Role="Rating" Type="UGEContextEntities.Store.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rating_User">
+          <End Role="User" Type="UGEContextEntities.Store.User" Multiplicity="1" />
+          <End Role="Rating" Type="UGEContextEntities.Store.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReplyAgainstMistake_ArticleMistake">
+          <End Role="ArticleMistake" Type="UGEContextEntities.Store.ArticleMistake" Multiplicity="1" />
+          <End Role="ReplyAgainstMistake" Type="UGEContextEntities.Store.ReplyAgainstMistake" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArticleMistake">
+              <PropertyRef Name="ArticleMistakeID" />
+            </Principal>
+            <Dependent Role="ReplyAgainstMistake">
+              <PropertyRef Name="ArticleMistakeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReplyAgainstMistake_ReplyAgainstMistake">
+          <End Role="ReplyAgainstMistake" Type="UGEContextEntities.Store.ReplyAgainstMistake" Multiplicity="1" />
+          <End Role="ReplyAgainstMistake1" Type="UGEContextEntities.Store.ReplyAgainstMistake" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReplyAgainstMistake">
+              <PropertyRef Name="ReplyAgainstMistakeID" />
+            </Principal>
+            <Dependent Role="ReplyAgainstMistake1">
+              <PropertyRef Name="LinkedReplyMistakeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReplyAgainstMistake_User">
+          <End Role="User" Type="UGEContextEntities.Store.User" Multiplicity="1" />
+          <End Role="ReplyAgainstMistake" Type="UGEContextEntities.Store.ReplyAgainstMistake" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ReplyAgainstMistake">
+              <PropertyRef Name="RepliedByWhomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WatchedReference_Article">
+          <End Role="Article" Type="UGEContextEntities.Store.Article" Multiplicity="1" />
+          <End Role="WatchedReference" Type="UGEContextEntities.Store.WatchedReference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="WatchedReference">
+              <PropertyRef Name="WhichFromArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WatchedReference_Article1">
+          <End Role="Article" Type="UGEContextEntities.Store.Article" Multiplicity="1" />
+          <End Role="WatchedReference" Type="UGEContextEntities.Store.WatchedReference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="WatchedReference">
+              <PropertyRef Name="WhichToArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WishList_Article">
+          <End Role="Article" Type="UGEContextEntities.Store.Article" Multiplicity="1" />
+          <End Role="WishList" Type="UGEContextEntities.Store.WishList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="WishList">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WishList_User">
+          <End Role="User" Type="UGEContextEntities.Store.User" Multiplicity="1" />
+          <End Role="WishList" Type="UGEContextEntities.Store.WishList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="WishList">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UGEContextEntities" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="UGEContext" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="Articles" EntityType="UGEContextEntities.Article" />
+          <EntitySet Name="ArticleMistakes" EntityType="UGEContextEntities.ArticleMistake" />
+          <EntitySet Name="Books" EntityType="UGEContextEntities.Book" />
+          <EntitySet Name="Bookmarks" EntityType="UGEContextEntities.Bookmark" />
+          <EntitySet Name="Chapters" EntityType="UGEContextEntities.Chapter" />
+          <EntitySet Name="Choices" EntityType="UGEContextEntities.Choice" />
+          <EntitySet Name="LinksToDisplays" EntityType="UGEContextEntities.LinksToDisplay" />
+          <EntitySet Name="MCQs" EntityType="UGEContextEntities.MCQ" />
+          <EntitySet Name="Questions" EntityType="UGEContextEntities.Question" />
+          <EntitySet Name="Ratings" EntityType="UGEContextEntities.Rating" />
+          <EntitySet Name="ReplyAgainstMistakes" EntityType="UGEContextEntities.ReplyAgainstMistake" />
+          <EntitySet Name="Subjects" EntityType="UGEContextEntities.Subject" />
+          <EntitySet Name="sysdiagrams" EntityType="UGEContextEntities.sysdiagram" />
+          <EntitySet Name="Users" EntityType="UGEContextEntities.User" />
+          <EntitySet Name="UserProfiles" EntityType="UGEContextEntities.UserProfile" />
+          <EntitySet Name="WatchedReferences" EntityType="UGEContextEntities.WatchedReference" />
+          <EntitySet Name="WishLists" EntityType="UGEContextEntities.WishList" />
+          <AssociationSet Name="FK_ArticleMistake_Article" Association="UGEContextEntities.FK_ArticleMistake_Article">
+            <End Role="Article" EntitySet="Articles" />
+            <End Role="ArticleMistake" EntitySet="ArticleMistakes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bookmark_Article" Association="UGEContextEntities.FK_Bookmark_Article">
+            <End Role="Article" EntitySet="Articles" />
+            <End Role="Bookmark" EntitySet="Bookmarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chapter_Article" Association="UGEContextEntities.FK_Chapter_Article">
+            <End Role="Article" EntitySet="Articles" />
+            <End Role="Chapter" EntitySet="Chapters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinksToDisplay_Article" Association="UGEContextEntities.FK_LinksToDisplay_Article">
+            <End Role="Article" EntitySet="Articles" />
+            <End Role="LinksToDisplay" EntitySet="LinksToDisplays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MCQ_Article" Association="UGEContextEntities.FK_MCQ_Article">
+            <End Role="Article" EntitySet="Articles" />
+            <End Role="MCQ" EntitySet="MCQs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_Article" Association="UGEContextEntities.FK_Rating_Article">
+            <End Role="Article" EntitySet="Articles" />
+            <End Role="Rating" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WatchedReference_Article" Association="UGEContextEntities.FK_WatchedReference_Article">
+            <End Role="Article" EntitySet="Articles" />
+            <End Role="WatchedReference" EntitySet="WatchedReferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WatchedReference_Article1" Association="UGEContextEntities.FK_WatchedReference_Article1">
+            <End Role="Article" EntitySet="Articles" />
+            <End Role="WatchedReference" EntitySet="WatchedReferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishList_Article" Association="UGEContextEntities.FK_WishList_Article">
+            <End Role="Article" EntitySet="Articles" />
+            <End Role="WishList" EntitySet="WishLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ArticleMistake_User" Association="UGEContextEntities.FK_ArticleMistake_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ArticleMistake" EntitySet="ArticleMistakes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReplyAgainstMistake_ArticleMistake" Association="UGEContextEntities.FK_ReplyAgainstMistake_ArticleMistake">
+            <End Role="ArticleMistake" EntitySet="ArticleMistakes" />
+            <End Role="ReplyAgainstMistake" EntitySet="ReplyAgainstMistakes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_Subject" Association="UGEContextEntities.FK_Book_Subject">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chapter_Book" Association="UGEContextEntities.FK_Chapter_Book">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="Chapter" EntitySet="Chapters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bookmark_User" Association="UGEContextEntities.FK_Bookmark_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Bookmark" EntitySet="Bookmarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinksToDisplay_Chapter" Association="UGEContextEntities.FK_LinksToDisplay_Chapter">
+            <End Role="Chapter" EntitySet="Chapters" />
+            <End Role="LinksToDisplay" EntitySet="LinksToDisplays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Choice_Question" Association="UGEContextEntities.FK_Choice_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Choice" EntitySet="Choices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_MCQ" Association="UGEContextEntities.FK_Question_MCQ">
+            <End Role="MCQ" EntitySet="MCQs" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_User" Association="UGEContextEntities.FK_Rating_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Rating" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReplyAgainstMistake_ReplyAgainstMistake" Association="UGEContextEntities.FK_ReplyAgainstMistake_ReplyAgainstMistake">
+            <End Role="ReplyAgainstMistake" EntitySet="ReplyAgainstMistakes" />
+            <End Role="ReplyAgainstMistake1" EntitySet="ReplyAgainstMistakes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReplyAgainstMistake_User" Association="UGEContextEntities.FK_ReplyAgainstMistake_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ReplyAgainstMistake" EntitySet="ReplyAgainstMistakes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishList_User" Association="UGEContextEntities.FK_WishList_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="WishList" EntitySet="WishLists" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="ArticleID" />
+          </Key>
+          <Property Name="ArticleID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleName" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="800" Unicode="false" FixedLength="false" />
+          <Property Name="PreviousArticleID" Type="Int64" />
+          <Property Name="NextArticleID" Type="Int64" />
+          <Property Name="ChapterID" Type="Int32" Nullable="false" />
+          <Property Name="VideoLink" Type="String" Nullable="false" MaxLength="800" Unicode="false" FixedLength="false" />
+          <Property Name="Height" Type="Int16" Nullable="false" />
+          <Property Name="Width" Type="Int16" Nullable="false" />
+          <Property Name="AvgRating" Type="Double" Nullable="false" />
+          <NavigationProperty Name="ArticleMistakes" Relationship="UGEContextEntities.FK_ArticleMistake_Article" FromRole="Article" ToRole="ArticleMistake" />
+          <NavigationProperty Name="Bookmarks" Relationship="UGEContextEntities.FK_Bookmark_Article" FromRole="Article" ToRole="Bookmark" />
+          <NavigationProperty Name="Chapters" Relationship="UGEContextEntities.FK_Chapter_Article" FromRole="Article" ToRole="Chapter" />
+          <NavigationProperty Name="LinksToDisplays" Relationship="UGEContextEntities.FK_LinksToDisplay_Article" FromRole="Article" ToRole="LinksToDisplay" />
+          <NavigationProperty Name="MCQs" Relationship="UGEContextEntities.FK_MCQ_Article" FromRole="Article" ToRole="MCQ" />
+          <NavigationProperty Name="Ratings" Relationship="UGEContextEntities.FK_Rating_Article" FromRole="Article" ToRole="Rating" />
+          <NavigationProperty Name="WatchedReferences" Relationship="UGEContextEntities.FK_WatchedReference_Article" FromRole="Article" ToRole="WatchedReference" />
+          <NavigationProperty Name="WatchedReferences1" Relationship="UGEContextEntities.FK_WatchedReference_Article1" FromRole="Article" ToRole="WatchedReference" />
+          <NavigationProperty Name="WishLists" Relationship="UGEContextEntities.FK_WishList_Article" FromRole="Article" ToRole="WishList" />
+        </EntityType>
+        <EntityType Name="ArticleMistake">
+          <Key>
+            <PropertyRef Name="ArticleMistakeID" />
+          </Key>
+          <Property Name="ArticleMistakeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ArticleID" Type="Int64" Nullable="false" />
+          <Property Name="SubmitedDated" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Article" Relationship="UGEContextEntities.FK_ArticleMistake_Article" FromRole="ArticleMistake" ToRole="Article" />
+          <NavigationProperty Name="User" Relationship="UGEContextEntities.FK_ArticleMistake_User" FromRole="ArticleMistake" ToRole="User" />
+          <NavigationProperty Name="ReplyAgainstMistakes" Relationship="UGEContextEntities.FK_ReplyAgainstMistake_ArticleMistake" FromRole="ArticleMistake" ToRole="ReplyAgainstMistake" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="BookID" />
+          </Key>
+          <Property Name="BookID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectID" Type="Byte" Nullable="false" />
+          <Property Name="BookName" Type="String" Nullable="false" MaxLength="80" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Subject" Relationship="UGEContextEntities.FK_Book_Subject" FromRole="Book" ToRole="Subject" />
+          <NavigationProperty Name="Chapters" Relationship="UGEContextEntities.FK_Chapter_Book" FromRole="Book" ToRole="Chapter" />
+        </EntityType>
+        <EntityType Name="Bookmark">
+          <Key>
+            <PropertyRef Name="BookmarkID" />
+          </Key>
+          <Property Name="BookmarkID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ArticleID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Article" Relationship="UGEContextEntities.FK_Bookmark_Article" FromRole="Bookmark" ToRole="Article" />
+          <NavigationProperty Name="User" Relationship="UGEContextEntities.FK_Bookmark_User" FromRole="Bookmark" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Chapter">
+          <Key>
+            <PropertyRef Name="ChapterID" />
+          </Key>
+          <Property Name="ChapterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookID" Type="Int32" Nullable="false" />
+          <Property Name="TopicName" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="TotalArticles" Type="Int32" Nullable="false" />
+          <Property Name="MasterArticleID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Article" Relationship="UGEContextEntities.FK_Chapter_Article" FromRole="Chapter" ToRole="Article" />
+          <NavigationProperty Name="Book" Relationship="UGEContextEntities.FK_Chapter_Book" FromRole="Chapter" ToRole="Book" />
+          <NavigationProperty Name="LinksToDisplays" Relationship="UGEContextEntities.FK_LinksToDisplay_Chapter" FromRole="Chapter" ToRole="LinksToDisplay" />
+        </EntityType>
+        <EntityType Name="Choice">
+          <Key>
+            <PropertyRef Name="ChoiceID" />
+          </Key>
+          <Property Name="ChoiceID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionID" Type="Int64" Nullable="false" />
+          <Property Name="ChoiceDisplay" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Question" Relationship="UGEContextEntities.FK_Choice_Question" FromRole="Choice" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="LinksToDisplay">
+          <Key>
+            <PropertyRef Name="LinksToDisplayID" />
+          </Key>
+          <Property Name="LinksToDisplayID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleID" Type="Int64" Nullable="false" />
+          <Property Name="ChapterID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Article" Relationship="UGEContextEntities.FK_LinksToDisplay_Article" FromRole="LinksToDisplay" ToRole="Article" />
+          <NavigationProperty Name="Chapter" Relationship="UGEContextEntities.FK_LinksToDisplay_Chapter" FromRole="LinksToDisplay" ToRole="Chapter" />
+        </EntityType>
+        <EntityType Name="MCQ">
+          <Key>
+            <PropertyRef Name="MCQID" />
+          </Key>
+          <Property Name="MCQID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Duration" Type="Int16" Nullable="false" />
+          <Property Name="ArticleID" Type="Int64" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="DisplayQuestion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Article" Relationship="UGEContextEntities.FK_MCQ_Article" FromRole="MCQ" ToRole="Article" />
+          <NavigationProperty Name="Questions" Relationship="UGEContextEntities.FK_Question_MCQ" FromRole="MCQ" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Hint" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="AnswerChoiceID" Type="Int64" Nullable="false" />
+          <Property Name="QuestionDisplay" Type="String" Nullable="false" MaxLength="800" Unicode="false" FixedLength="false" />
+          <Property Name="MCQID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Choices" Relationship="UGEContextEntities.FK_Choice_Question" FromRole="Question" ToRole="Choice" />
+          <NavigationProperty Name="MCQ" Relationship="UGEContextEntities.FK_Question_MCQ" FromRole="Question" ToRole="MCQ" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="RatingID" />
+          </Key>
+          <Property Name="RatingID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleID" Type="Int64" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="VideoQualtiy" Type="Byte" Nullable="false" />
+          <Property Name="TechingTechnique" Type="Byte" Nullable="false" />
+          <Property Name="Mateials" Type="Byte" Nullable="false" />
+          <Property Name="AvgRating" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Article" Relationship="UGEContextEntities.FK_Rating_Article" FromRole="Rating" ToRole="Article" />
+          <NavigationProperty Name="User" Relationship="UGEContextEntities.FK_Rating_User" FromRole="Rating" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ReplyAgainstMistake">
+          <Key>
+            <PropertyRef Name="ReplyAgainstMistakeID" />
+          </Key>
+          <Property Name="ReplyAgainstMistakeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleMistakeID" Type="Int64" Nullable="false" />
+          <Property Name="RepliedByWhomID" Type="Int32" Nullable="false" />
+          <Property Name="Reply" Type="String" Nullable="false" MaxLength="800" Unicode="false" FixedLength="false" />
+          <Property Name="LinkedReplyMistakeID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="ArticleMistake" Relationship="UGEContextEntities.FK_ReplyAgainstMistake_ArticleMistake" FromRole="ReplyAgainstMistake" ToRole="ArticleMistake" />
+          <NavigationProperty Name="ReplyAgainstMistake1" Relationship="UGEContextEntities.FK_ReplyAgainstMistake_ReplyAgainstMistake" FromRole="ReplyAgainstMistake" ToRole="ReplyAgainstMistake1" />
+          <NavigationProperty Name="ReplyAgainstMistake2" Relationship="UGEContextEntities.FK_ReplyAgainstMistake_ReplyAgainstMistake" FromRole="ReplyAgainstMistake1" ToRole="ReplyAgainstMistake" />
+          <NavigationProperty Name="User" Relationship="UGEContextEntities.FK_ReplyAgainstMistake_User" FromRole="ReplyAgainstMistake" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Books" Relationship="UGEContextEntities.FK_Book_Subject" FromRole="Subject" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LogName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="ArticleMistakes" Relationship="UGEContextEntities.FK_ArticleMistake_User" FromRole="User" ToRole="ArticleMistake" />
+          <NavigationProperty Name="Bookmarks" Relationship="UGEContextEntities.FK_Bookmark_User" FromRole="User" ToRole="Bookmark" />
+          <NavigationProperty Name="Ratings" Relationship="UGEContextEntities.FK_Rating_User" FromRole="User" ToRole="Rating" />
+          <NavigationProperty Name="ReplyAgainstMistakes" Relationship="UGEContextEntities.FK_ReplyAgainstMistake_User" FromRole="User" ToRole="ReplyAgainstMistake" />
+          <NavigationProperty Name="WishLists" Relationship="UGEContextEntities.FK_WishList_User" FromRole="User" ToRole="WishList" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="56" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="WatchedReference">
+          <Key>
+            <PropertyRef Name="WatchedReferenceID" />
+          </Key>
+          <Property Name="WatchedReferenceID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WhichFromArticleID" Type="Int64" Nullable="false" />
+          <Property Name="WhichToArticleID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Article" Relationship="UGEContextEntities.FK_WatchedReference_Article" FromRole="WatchedReference" ToRole="Article" />
+          <NavigationProperty Name="Article1" Relationship="UGEContextEntities.FK_WatchedReference_Article1" FromRole="WatchedReference" ToRole="Article" />
+        </EntityType>
+        <EntityType Name="WishList">
+          <Key>
+            <PropertyRef Name="WishListID" />
+          </Key>
+          <Property Name="WishListID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ArticleID" Type="Int64" Nullable="false" />
+          <Property Name="Dated" Type="DateTime" Nullable="false" />
+          <Property Name="LastNotified" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Article" Relationship="UGEContextEntities.FK_WishList_Article" FromRole="WishList" ToRole="Article" />
+          <NavigationProperty Name="User" Relationship="UGEContextEntities.FK_WishList_User" FromRole="WishList" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_ArticleMistake_Article">
+          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
+          <End Role="ArticleMistake" Type="UGEContextEntities.ArticleMistake" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="ArticleMistake">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bookmark_Article">
+          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
+          <End Role="Bookmark" Type="UGEContextEntities.Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chapter_Article">
+          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
+          <End Role="Chapter" Type="UGEContextEntities.Chapter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="Chapter">
+              <PropertyRef Name="MasterArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinksToDisplay_Article">
+          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
+          <End Role="LinksToDisplay" Type="UGEContextEntities.LinksToDisplay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="LinksToDisplay">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MCQ_Article">
+          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
+          <End Role="MCQ" Type="UGEContextEntities.MCQ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="MCQ">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rating_Article">
+          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
+          <End Role="Rating" Type="UGEContextEntities.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WatchedReference_Article">
+          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
+          <End Role="WatchedReference" Type="UGEContextEntities.WatchedReference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="WatchedReference">
+              <PropertyRef Name="WhichFromArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WatchedReference_Article1">
+          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
+          <End Role="WatchedReference" Type="UGEContextEntities.WatchedReference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="WatchedReference">
+              <PropertyRef Name="WhichToArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WishList_Article">
+          <End Role="Article" Type="UGEContextEntities.Article" Multiplicity="1" />
+          <End Role="WishList" Type="UGEContextEntities.WishList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="WishList">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ArticleMistake_User">
+          <End Role="User" Type="UGEContextEntities.User" Multiplicity="1" />
+          <End Role="ArticleMistake" Type="UGEContextEntities.ArticleMistake" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ArticleMistake">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReplyAgainstMistake_ArticleMistake">
+          <End Role="ArticleMistake" Type="UGEContextEntities.ArticleMistake" Multiplicity="1" />
+          <End Role="ReplyAgainstMistake" Type="UGEContextEntities.ReplyAgainstMistake" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArticleMistake">
+              <PropertyRef Name="ArticleMistakeID" />
+            </Principal>
+            <Dependent Role="ReplyAgainstMistake">
+              <PropertyRef Name="ArticleMistakeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_Subject">
+          <End Role="Subject" Type="UGEContextEntities.Subject" Multiplicity="1" />
+          <End Role="Book" Type="UGEContextEntities.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chapter_Book">
+          <End Role="Book" Type="UGEContextEntities.Book" Multiplicity="1" />
+          <End Role="Chapter" Type="UGEContextEntities.Chapter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="BookID" />
+            </Principal>
+            <Dependent Role="Chapter">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bookmark_User">
+          <End Role="User" Type="UGEContextEntities.User" Multiplicity="1" />
+          <End Role="Bookmark" Type="UGEContextEntities.Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinksToDisplay_Chapter">
+          <End Role="Chapter" Type="UGEContextEntities.Chapter" Multiplicity="1" />
+          <End Role="LinksToDisplay" Type="UGEContextEntities.LinksToDisplay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chapter">
+              <PropertyRef Name="ChapterID" />
+            </Principal>
+            <Dependent Role="LinksToDisplay">
+              <PropertyRef Name="ChapterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Choice_Question">
+          <End Role="Question" Type="UGEContextEntities.Question" Multiplicity="1" />
+          <End Role="Choice" Type="UGEContextEntities.Choice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="Choice">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_MCQ">
+          <End Role="MCQ" Type="UGEContextEntities.MCQ" Multiplicity="1" />
+          <End Role="Question" Type="UGEContextEntities.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MCQ">
+              <PropertyRef Name="MCQID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="MCQID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rating_User">
+          <End Role="User" Type="UGEContextEntities.User" Multiplicity="1" />
+          <End Role="Rating" Type="UGEContextEntities.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReplyAgainstMistake_ReplyAgainstMistake">
+          <End Role="ReplyAgainstMistake" Type="UGEContextEntities.ReplyAgainstMistake" Multiplicity="1" />
+          <End Role="ReplyAgainstMistake1" Type="UGEContextEntities.ReplyAgainstMistake" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReplyAgainstMistake">
+              <PropertyRef Name="ReplyAgainstMistakeID" />
+            </Principal>
+            <Dependent Role="ReplyAgainstMistake1">
+              <PropertyRef Name="LinkedReplyMistakeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReplyAgainstMistake_User">
+          <End Role="User" Type="UGEContextEntities.User" Multiplicity="1" />
+          <End Role="ReplyAgainstMistake" Type="UGEContextEntities.ReplyAgainstMistake" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ReplyAgainstMistake">
+              <PropertyRef Name="RepliedByWhomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WishList_User">
+          <End Role="User" Type="UGEContextEntities.User" Multiplicity="1" />
+          <End Role="WishList" Type="UGEContextEntities.WishList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="WishList">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UGEContextEntitiesStoreContainer" CdmEntityContainer="UGEContext">
+          <EntitySetMapping Name="Articles"><EntityTypeMapping TypeName="UGEContextEntities.Article"><MappingFragment StoreEntitySet="Article">
+            <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+            <ScalarProperty Name="ArticleName" ColumnName="ArticleName" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="PreviousArticleID" ColumnName="PreviousArticleID" />
+            <ScalarProperty Name="NextArticleID" ColumnName="NextArticleID" />
+            <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
+            <ScalarProperty Name="VideoLink" ColumnName="VideoLink" />
+            <ScalarProperty Name="Height" ColumnName="Height" />
+            <ScalarProperty Name="Width" ColumnName="Width" />
+            <ScalarProperty Name="AvgRating" ColumnName="AvgRating" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ArticleMistakes"><EntityTypeMapping TypeName="UGEContextEntities.ArticleMistake"><MappingFragment StoreEntitySet="ArticleMistake">
+            <ScalarProperty Name="ArticleMistakeID" ColumnName="ArticleMistakeID" />
+            <ScalarProperty Name="UserID" ColumnName="UserID" />
+            <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+            <ScalarProperty Name="SubmitedDated" ColumnName="SubmitedDated" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Books"><EntityTypeMapping TypeName="UGEContextEntities.Book"><MappingFragment StoreEntitySet="Book">
+            <ScalarProperty Name="BookID" ColumnName="BookID" />
+            <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+            <ScalarProperty Name="BookName" ColumnName="BookName" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Bookmarks"><EntityTypeMapping TypeName="UGEContextEntities.Bookmark"><MappingFragment StoreEntitySet="Bookmark">
+            <ScalarProperty Name="BookmarkID" ColumnName="BookmarkID" />
+            <ScalarProperty Name="UserID" ColumnName="UserID" />
+            <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Chapters"><EntityTypeMapping TypeName="UGEContextEntities.Chapter"><MappingFragment StoreEntitySet="Chapter">
+            <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
+            <ScalarProperty Name="BookID" ColumnName="BookID" />
+            <ScalarProperty Name="TopicName" ColumnName="TopicName" />
+            <ScalarProperty Name="TotalArticles" ColumnName="TotalArticles" />
+            <ScalarProperty Name="MasterArticleID" ColumnName="MasterArticleID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Choices"><EntityTypeMapping TypeName="UGEContextEntities.Choice"><MappingFragment StoreEntitySet="Choice">
+            <ScalarProperty Name="ChoiceID" ColumnName="ChoiceID" />
+            <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+            <ScalarProperty Name="ChoiceDisplay" ColumnName="ChoiceDisplay" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="LinksToDisplays"><EntityTypeMapping TypeName="UGEContextEntities.LinksToDisplay"><MappingFragment StoreEntitySet="LinksToDisplay">
+            <ScalarProperty Name="LinksToDisplayID" ColumnName="LinksToDisplayID" />
+            <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+            <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MCQs"><EntityTypeMapping TypeName="UGEContextEntities.MCQ"><MappingFragment StoreEntitySet="MCQ">
+            <ScalarProperty Name="MCQID" ColumnName="MCQID" />
+            <ScalarProperty Name="Duration" ColumnName="Duration" />
+            <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="DisplayQuestion" ColumnName="DisplayQuestion" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Questions"><EntityTypeMapping TypeName="UGEContextEntities.Question"><MappingFragment StoreEntitySet="Question">
+            <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+            <ScalarProperty Name="Hint" ColumnName="Hint" />
+            <ScalarProperty Name="AnswerChoiceID" ColumnName="AnswerChoiceID" />
+            <ScalarProperty Name="QuestionDisplay" ColumnName="QuestionDisplay" />
+            <ScalarProperty Name="MCQID" ColumnName="MCQID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Ratings"><EntityTypeMapping TypeName="UGEContextEntities.Rating"><MappingFragment StoreEntitySet="Rating">
+            <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+            <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+            <ScalarProperty Name="UserID" ColumnName="UserID" />
+            <ScalarProperty Name="VideoQualtiy" ColumnName="VideoQualtiy" />
+            <ScalarProperty Name="TechingTechnique" ColumnName="TechingTechnique" />
+            <ScalarProperty Name="Mateials" ColumnName="Mateials" />
+            <ScalarProperty Name="AvgRating" ColumnName="AvgRating" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ReplyAgainstMistakes"><EntityTypeMapping TypeName="UGEContextEntities.ReplyAgainstMistake"><MappingFragment StoreEntitySet="ReplyAgainstMistake">
+            <ScalarProperty Name="ReplyAgainstMistakeID" ColumnName="ReplyAgainstMistakeID" />
+            <ScalarProperty Name="ArticleMistakeID" ColumnName="ArticleMistakeID" />
+            <ScalarProperty Name="RepliedByWhomID" ColumnName="RepliedByWhomID" />
+            <ScalarProperty Name="Reply" ColumnName="Reply" />
+            <ScalarProperty Name="LinkedReplyMistakeID" ColumnName="LinkedReplyMistakeID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Subjects"><EntityTypeMapping TypeName="UGEContextEntities.Subject"><MappingFragment StoreEntitySet="Subject">
+            <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+            <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams"><EntityTypeMapping TypeName="UGEContextEntities.sysdiagram"><MappingFragment StoreEntitySet="sysdiagrams">
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+            <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+            <ScalarProperty Name="version" ColumnName="version" />
+            <ScalarProperty Name="definition" ColumnName="definition" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="UGEContextEntities.User"><MappingFragment StoreEntitySet="User">
+            <ScalarProperty Name="UserID" ColumnName="UserID" />
+            <ScalarProperty Name="LogName" ColumnName="LogName" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles"><EntityTypeMapping TypeName="UGEContextEntities.UserProfile"><MappingFragment StoreEntitySet="UserProfile">
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="UserName" ColumnName="UserName" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="WatchedReferences"><EntityTypeMapping TypeName="UGEContextEntities.WatchedReference"><MappingFragment StoreEntitySet="WatchedReference">
+            <ScalarProperty Name="WatchedReferenceID" ColumnName="WatchedReferenceID" />
+            <ScalarProperty Name="WhichFromArticleID" ColumnName="WhichFromArticleID" />
+            <ScalarProperty Name="WhichToArticleID" ColumnName="WhichToArticleID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="WishLists"><EntityTypeMapping TypeName="UGEContextEntities.WishList"><MappingFragment StoreEntitySet="WishList">
+            <ScalarProperty Name="WishListID" ColumnName="WishListID" />
+            <ScalarProperty Name="UserID" ColumnName="UserID" />
+            <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+            <ScalarProperty Name="Dated" ColumnName="Dated" />
+            <ScalarProperty Name="LastNotified" ColumnName="LastNotified" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="UgeModel">
+        <EntityTypeShape EntityType="UGEContextEntities.Article" Width="1.5" PointX="0.75" PointY="10.125" Height="4.6725065104166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="UGEContextEntities.ArticleMistake" Width="1.5" PointX="3" PointY="11.375" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="UGEContextEntities.Book" Width="1.5" PointX="3.75" PointY="2.5" Height="1.9802864583333322" IsExpanded="true" />
+        <EntityTypeShape EntityType="UGEContextEntities.Bookmark" Width="1.5" PointX="3" PointY="8.5" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="UGEContextEntities.Chapter" Width="1.5" PointX="6" PointY="11.25" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="UGEContextEntities.Choice" Width="1.5" PointX="7.5" PointY="19.375" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="UGEContextEntities.LinksToDisplay" Width="1.5" PointX="11.25" PointY="11.5" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="UGEContextEntities.MCQ" Width="1.5" PointX="3" PointY="19.125" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="UGEContextEntities.Question" Width="1.5" PointX="5.25" PointY="19.125" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="UGEContextEntities.Rating" Width="1.5" PointX="3" PointY="15.125" Height="2.7494921874999978" IsExpanded="true" />
+        <EntityTypeShape EntityType="UGEContextEntities.ReplyAgainstMistake" Width="1.5" PointX="8.25" PointY="11.125" Height="2.7494921875000031" IsExpanded="true" />
+        <EntityTypeShape EntityType="UGEContextEntities.Subject" Width="1.5" PointX="1.5" PointY="2.75" Height="1.5956835937500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="UGEContextEntities.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="UGEContextEntities.User" Width="1.5" PointX="3.75" PointY="5.375" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="UGEContextEntities.UserProfile" Width="1.5" PointX="0.75" PointY="5.75" Height="1.4033821614583388" IsExpanded="true" />
+        <EntityTypeShape EntityType="UGEContextEntities.WatchedReference" Width="1.5" PointX="3" PointY="25.75" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="UGEContextEntities.WishList" Width="1.5" PointX="6" PointY="7.375" Height="2.3648893229166674" IsExpanded="true" />
+        <AssociationConnector Association="UGEContextEntities.FK_ArticleMistake_Article" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="12.557444661458334" />
+          <ConnectorPoint PointX="3" PointY="12.557444661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_Bookmark_Article" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="10.302643229166666" />
+          <ConnectorPoint PointX="3" PointY="10.302643229166666" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_Chapter_Article" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="11.28125" />
+          <ConnectorPoint PointX="4.7916671666666675" PointY="11.28125" />
+          <ConnectorPoint PointX="4.9583338333333336" PointY="11.28125" />
+          <ConnectorPoint PointX="5.0104194166666671" PointY="11.28125" />
+          <ConnectorPoint PointX="5.1770860833333332" PointY="11.28125" />
+          <ConnectorPoint PointX="5.541666666666667" PointY="11.28125" />
+          <ConnectorPoint PointX="5.708333333333333" PointY="11.28125" />
+          <ConnectorPoint PointX="6" PointY="11.28125" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_LinksToDisplay_Article" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="14.367249348958335" />
+          <ConnectorPoint PointX="5.0104194166666671" PointY="14.367249348958335" />
+          <ConnectorPoint PointX="5.1770860833333332" PointY="14.367249348958335" />
+          <ConnectorPoint PointX="8.6985897435897428" PointY="14.367249348958335" />
+          <ConnectorPoint PointX="8.86525641025641" PointY="14.367249348958335" />
+          <ConnectorPoint PointX="9.1451282051282039" PointY="14.367249348958335" />
+          <ConnectorPoint PointX="9.3117948717948718" PointY="14.367249348958335" />
+          <ConnectorPoint PointX="12" PointY="14.367249348958335" />
+          <ConnectorPoint PointX="12" PointY="13.480286458333332" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_MCQ_Article" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="14.797506510416667" />
+          <ConnectorPoint PointX="1.5" PointY="20.307444661458334" />
+          <ConnectorPoint PointX="2.0260454166666664" PointY="20.307444661458334" />
+          <ConnectorPoint PointX="2.1927120833333333" PointY="20.307444661458334" />
+          <ConnectorPoint PointX="3" PointY="20.307444661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_Rating_Article" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.9062525" PointY="14.797506510416667" />
+          <ConnectorPoint PointX="1.9062525" PointY="16.499746093749998" />
+          <ConnectorPoint PointX="2.0260454166666664" PointY="16.499746093749998" />
+          <ConnectorPoint PointX="2.1927120833333333" PointY="16.499746093749998" />
+          <ConnectorPoint PointX="3" PointY="16.499746093749998" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_WatchedReference_Article" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.0937475" PointY="14.797506510416667" />
+          <ConnectorPoint PointX="1.0937475" PointY="26.740143229166669" />
+          <ConnectorPoint PointX="3" PointY="26.740143229166669" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_WatchedReference_Article1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.10937875" PointY="14.797506510416667" />
+          <ConnectorPoint PointX="2.10937875" PointY="26.213819114583334" />
+          <ConnectorPoint PointX="3" PointY="26.213819114583334" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_WishList_Article" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="10.125" />
+          <ConnectorPoint PointX="1.5" PointY="8.1199446614583337" />
+          <ConnectorPoint PointX="4.041666666666667" PointY="8.1199446614583337" />
+          <ConnectorPoint PointX="4.208333333333333" PointY="8.1199446614583337" />
+          <ConnectorPoint PointX="4.6041644166666673" PointY="8.1199446614583337" />
+          <ConnectorPoint PointX="4.7708310833333334" PointY="8.1199446614583337" />
+          <ConnectorPoint PointX="4.7916671666666675" PointY="8.1199446614583337" />
+          <ConnectorPoint PointX="4.9583338333333336" PointY="8.1199446614583337" />
+          <ConnectorPoint PointX="5.0104194166666671" PointY="8.1199446614583337" />
+          <ConnectorPoint PointX="5.1770860833333332" PointY="8.1199446614583337" />
+          <ConnectorPoint PointX="5.541666666666667" PointY="8.1199446614583337" />
+          <ConnectorPoint PointX="5.708333333333333" PointY="8.1199446614583337" />
+          <ConnectorPoint PointX="6" PointY="8.1199446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_ArticleMistake_User" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.8750005000000005" PointY="7.7398893229166674" />
+          <ConnectorPoint PointX="4.8750005000000005" PointY="12.557444661458334" />
+          <ConnectorPoint PointX="4.5" PointY="12.557444661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_ReplyAgainstMistake_ArticleMistake" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="13.739889322916667" />
+          <ConnectorPoint PointX="4.875" PointY="14.114889322916667" />
+          <ConnectorPoint PointX="4.875" PointY="14.124492187500003" />
+          <ConnectorPoint PointX="5.0104194166666671" PointY="14.124492187500003" />
+          <ConnectorPoint PointX="5.1770860833333332" PointY="14.124492187500003" />
+          <ConnectorPoint PointX="8" PointY="14.124492187500003" />
+          <ConnectorPoint PointX="8.25" PointY="13.874492187500003" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_Book_Subject" ManuallyRouted="false">
+          <ConnectorPoint PointX="3" PointY="3.5478417968750016" />
+          <ConnectorPoint PointX="3.75" PointY="3.5478417968750016" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_Chapter_Book" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.25" PointY="4.4802864583333317" />
+          <ConnectorPoint PointX="5.625" PointY="4.8552864583333317" />
+          <ConnectorPoint PointX="5.625" PointY="12.575472377604168" />
+          <ConnectorPoint PointX="6" PointY="12.575472377604168" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_Bookmark_User" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.125" PointY="7.7398893229166674" />
+          <ConnectorPoint PointX="4.125" PointY="8.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_LinksToDisplay_Chapter" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="13.807190755208332" />
+          <ConnectorPoint PointX="6.75" PointY="14.057190755208332" />
+          <ConnectorPoint PointX="7.9839680989583384" PointY="14.057190755208332" />
+          <ConnectorPoint PointX="8.1506347656250053" PointY="14.057190755208332" />
+          <ConnectorPoint PointX="8.6985897435897428" PointY="14.057190755208332" />
+          <ConnectorPoint PointX="8.86525641025641" PointY="14.057190755208332" />
+          <ConnectorPoint PointX="9.1451282051282039" PointY="14.057190755208332" />
+          <ConnectorPoint PointX="9.3117948717948718" PointY="14.057190755208332" />
+          <ConnectorPoint PointX="10.875" PointY="14.057190755208332" />
+          <ConnectorPoint PointX="10.875" PointY="12.490143229166666" />
+          <ConnectorPoint PointX="11.25" PointY="12.490143229166666" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_Choice_Question" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="20.268992513020834" />
+          <ConnectorPoint PointX="7.5" PointY="20.268992513020834" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_Question_MCQ" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="20.307444661458334" />
+          <ConnectorPoint PointX="5.25" PointY="20.307444661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_Rating_User" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.09375275" PointY="7.7398893229166674" />
+          <ConnectorPoint PointX="5.09375275" PointY="16.499746093749998" />
+          <ConnectorPoint PointX="4.5" PointY="16.499746093749998" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_ReplyAgainstMistake_ReplyAgainstMistake" ManuallyRouted="false">
+          <ConnectorPoint PointX="8.7819230769230767" PointY="13.874492187500003" />
+          <ConnectorPoint PointX="8.7819230769230767" PointY="14.499492187500003" />
+          <ConnectorPoint PointX="9.2284615384615378" PointY="14.499492187500003" />
+          <ConnectorPoint PointX="9.2284615384615378" PointY="13.874492187500003" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_ReplyAgainstMistake_User" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.68749775" PointY="7.7398893229166674" />
+          <ConnectorPoint PointX="4.68749775" PointY="11.15625" />
+          <ConnectorPoint PointX="4.7916671666666675" PointY="11.15625" />
+          <ConnectorPoint PointX="4.9583338333333336" PointY="11.15625" />
+          <ConnectorPoint PointX="5.0104194166666671" PointY="11.15625" />
+          <ConnectorPoint PointX="5.1770860833333332" PointY="11.15625" />
+          <ConnectorPoint PointX="5.541666666666667" PointY="11.15625" />
+          <ConnectorPoint PointX="5.708333333333333" PointY="11.15625" />
+          <ConnectorPoint PointX="8.25" PointY="11.15625" />
+        </AssociationConnector>
+        <AssociationConnector Association="UGEContextEntities.FK_WishList_User" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.25" PointY="7.5574446614583337" />
+          <ConnectorPoint PointX="5.541666666666667" PointY="7.5574446614583328" />
+          <ConnectorPoint PointX="5.708333333333333" PointY="7.5574446614583337" />
+          <ConnectorPoint PointX="6" PointY="7.5574446614583337" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

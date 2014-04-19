@@ -5,13 +5,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using UGE4.Models;
+using UGE4.DbInfrastructure;
 
 namespace UGE4.Areas.Admin.Controllers
 {
     public class SubjectController : Controller
     {
-        private Entities db = new Entities();
+        private UGEContext db = new UGEContext();
 
         //
         // GET: /Admin/Subject/
