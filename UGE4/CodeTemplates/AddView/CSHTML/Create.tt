@@ -73,29 +73,29 @@ if (mvcHost.ReferenceScriptLibraries) {
 }
 #>
 @using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
+    <div class="form-horizontal">
+    <h4><#= mvcHost.ViewDataType.Name #></h4>
+        @Html.ValidationSummary(true)
+        @Html.AntiForgeryToken()
 
-    <fieldset>
-        <legend><#= mvcHost.ViewDataType.Name #></legend>
 
 <#
 foreach (ModelProperty property in GetModelProperties(mvcHost.ViewDataType)) {
     if (!property.IsPrimaryKey && !property.IsReadOnly && property.Scaffold) {
 #>
-        <div class="editor-label">
+        <div class="form-group">
 <#
         if (property.IsForeignKey) {
 #>
-            @Html.LabelFor(model => model.<#= property.Name #>, "<#= property.AssociationName #>")
+            @Html.LabelFor(model => model.<#= property.Name #>, "<#= property.AssociationName #>",new { @class = "control-label col-md-2" })
 <#
         } else {
 #>
-            @Html.LabelFor(model => model.<#= property.Name #>)
+            @Html.LabelFor(model => model.<#= property.Name #>,new { @class = "control-label col-md-2" })
 <#
         }
 #>
-        </div>
-        <div class="editor-field">
+        <div class="col-md-10">
 <#
         if (property.IsForeignKey) {
 #>
@@ -108,16 +108,17 @@ foreach (ModelProperty property in GetModelProperties(mvcHost.ViewDataType)) {
         }
 #>
             @Html.ValidationMessageFor(model => model.<#= property.Name #>)
+            </div>
         </div>
-
+</div>
 <#
     }
 }
 #>
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
+        <div>
+            <input class="btn" type="submit" value="Create" />
+        </div>
+    
 }
 
 <div>
