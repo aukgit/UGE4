@@ -13,7 +13,7 @@ namespace UGE4.DbInfrastructure
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-    
+
     public partial class Article
     {
         public Article()
@@ -28,21 +28,46 @@ namespace UGE4.DbInfrastructure
             this.WatchedReferences1 = new HashSet<WatchedReference>();
             this.WishLists = new HashSet<WishList>();
         }
-        [DisplayName("Article ID")]        
+
+        [DisplayName("Article ID")]
         public long ArticleID { get; set; }
-        [DisplayName("Article Name")]      
+
+        [DisplayName("Article Name")]
         [StringLength(150)]
         [Required]
         public string ArticleName { get; set; }
+
+        [DisplayName("Description")]
+        [StringLength(800)]
+        [Required]
         public string Description { get; set; }
+
+        [DisplayName("Previous Article ID")]
         public Nullable<long> PreviousArticleID { get; set; }
+
+        [DisplayName("Next Article ID")]
         public Nullable<long> NextArticleID { get; set; }
+
+        [DisplayName("Chapter ID")]
         public int ChapterID { get; set; }
+
+        [DisplayName("Viodeo Link")]
+        [Required]
         public string VideoLink { get; set; }
+
+        [DisplayName("Height")]
+        [StringLength(800)]
+        [Required]
         public short Height { get; set; }
+
+        [DisplayName("Width")]
+        [Required]
         public short Width { get; set; }
+
+        [DisplayName("Average Rating")]
+        [Required]
         public double AvgRating { get; set; }
-    
+
         public virtual ICollection<ArticleMistake> ArticleMistakes { get; set; }
         public virtual ICollection<Bookmark> Bookmarks { get; set; }
         public virtual ICollection<Chapter> Chapters { get; set; }
