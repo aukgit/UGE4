@@ -165,6 +165,72 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BookController.cs" />
+    <Compile Include="CodeTemplates\AddController\ApiController.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApiController.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddController\ApiControllerWithContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApiControllerWithContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddController\Controller.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Controller.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddController\ControllerWithContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ControllerWithContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddController\External\ControllerWithContext--.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ControllerWithContext--.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddController\External\ControllerWithContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ControllerWithContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\Create.cs" />
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\Create1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\Delete.cs" />
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\Delete1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Delete.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\Details.cs" />
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\Details1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Details.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\Edit.cs" />
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\Edit1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\Empty.cs" />
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\Empty1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Empty.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\List.cs" />
+    <Compile Include="CodeTemplates\AddView\AspxCSharp\List1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>List.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DbInfrastructure\Article.cs">
@@ -357,7 +423,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>
@@ -377,6 +442,228 @@
     <Content Include="Areas\Admin\Views\Book\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Book\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Book\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
+    <None Include="CodeTemplates\AddController\ApiController.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ApiController.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddController\ApiControllerWithContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ApiControllerWithContext.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddController\Controller.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Controller.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddController\ControllerWithContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ControllerWithContext.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddController\External\ControllerWithContext--.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ControllerWithContext--.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddController\External\ControllerWithContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ControllerWithContext.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\AspxCSharp\Create.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Create1.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\AspxCSharp\Delete.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Delete1.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\AspxCSharp\Details.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Details1.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\AspxCSharp\Edit.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Edit1.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\AspxCSharp\Empty.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Empty1.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\AspxCSharp\List.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>List1.cs</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML.normal\Create.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML.normal\Create.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Create.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML.normal\Delete.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Delete.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML.normal\Delete.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Delete.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML.normal\Details.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Details.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML.normal\Details.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Details.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML.normal\Edit.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML.normal\Edit.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Edit.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML.normal\Empty.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Empty.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML.normal\Empty.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Empty.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML.normal\List.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>List.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML.normal\List.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>List.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML.normal\_Displays.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_Displays.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML.normal\_Displays.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_Displays.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML.normal\_DisplaySimple.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_DisplaySimple.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML.normal\_DisplaySimple.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_DisplaySimple.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML.normal\_Modify.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_Modify.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML.normal\_Modify.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_Modify.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML\Create.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML\Create.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Create.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML\Delete.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Delete.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML\Delete.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Delete.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML\Details.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Details.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML\Details.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Details.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML\Edit.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML\Edit.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Edit.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML\Empty.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Empty.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML\Empty.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Empty.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML\List.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>List.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML\List.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>List.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML\ListView.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ListView.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML\ListView.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ListView.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML\_Displays.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_Displays.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML\_Displays.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_Displays.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML\_DisplaySimple.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_DisplaySimple.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML\_DisplaySimple.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_DisplaySimple.cshtml</LastGenOutput>
+    </None>
+    <Content Include="CodeTemplates\AddView\CSHTML\_Modify.cshtml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_Modify.tt</DependentUpon>
+    </Content>
+    <None Include="CodeTemplates\AddView\CSHTML\_Modify.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_Modify.cshtml</LastGenOutput>
+    </None>
     <None Include="DbInfrastructure\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
@@ -388,6 +675,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
