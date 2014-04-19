@@ -1,0 +1,29 @@
+﻿@model UGE4.DbInfrastructure.Choice
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Choice</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Question.Hint)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Question.Hint)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ChoiceDisplay)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ChoiceDisplay)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ChoiceID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

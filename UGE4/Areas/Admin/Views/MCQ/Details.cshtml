@@ -1,0 +1,43 @@
+﻿@model UGE4.DbInfrastructure.MCQ
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>MCQ</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Duration)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Duration)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Article.ArticleName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Article.ArticleName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DisplayQuestion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DisplayQuestion)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.MCQID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

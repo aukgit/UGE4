@@ -11,6 +11,8 @@ namespace UGE4.DbInfrastructure
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Article
     {
@@ -26,8 +28,11 @@ namespace UGE4.DbInfrastructure
             this.WatchedReferences1 = new HashSet<WatchedReference>();
             this.WishLists = new HashSet<WishList>();
         }
-    
+        [DisplayName("Article ID")]        
         public long ArticleID { get; set; }
+        [DisplayName("Article Name")]      
+        [StringLength(150)]
+        [Required]
         public string ArticleName { get; set; }
         public string Description { get; set; }
         public Nullable<long> PreviousArticleID { get; set; }
