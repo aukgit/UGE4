@@ -40,7 +40,7 @@ namespace UGE4.Areas.Admin.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.SubjectID = new SelectList(db.Subjects, "SubjectID", "SubjectName");
+            ViewBag.SubjectID = new SelectList(db.Subjects.ToList(), "SubjectID", "SubjectName");
             return View();
         }
 
