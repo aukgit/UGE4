@@ -25,7 +25,7 @@ namespace UGE4
             //    appId: "",
             //    appSecret: "");
 
-            //OAuthWebSecurity.RegisterGoogleClient();
+           OAuthWebSecurity.RegisterGoogleClient();
         }
     }
 }

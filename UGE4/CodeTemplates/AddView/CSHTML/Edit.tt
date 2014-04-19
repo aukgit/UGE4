@@ -14,35 +14,6 @@
 <#@ import namespace="Microsoft.VisualStudio.Web.Mvc.Scaffolding.BuiltIn" #>
 <#
 MvcTextTemplateHost mvcHost = MvcTemplateHost;
-
-var modelName = mvcHost.ViewDataTypeName;
-var modelGentelName = "";
-int startingIndex = 0;
-for (int i = modelName.Length -1 ; i >= 0 ; i--)
-{
-	char c =  modelName[i];
-	if (c == '.') {
-		startingIndex = i;
-		break;		
-    }
-}
-for (int i = startingIndex + 1 ; i < modelName.Length ; i++)
-{
-	char c =  modelName[i];
-	bool IscLower = ((int)c >= (int)'a' && (int)c <= (int)'z') ? true : false;
-	
-	char cU = (IscLower) ? (char)((int)c - (int)'a' + (int)'A') : c; 
-	if(i == startingIndex + 1){
-		modelGentelName += modelName[i]; 		
-	} else {
-		if(i > 1 && IscLower == false){
-			modelGentelName += " " + cU;
-        } else {
-			modelGentelName += c;				
-		} 
-    }
-}
-
 #>
 @model <#= mvcHost.ViewDataTypeName #>
 <#
@@ -55,7 +26,7 @@ if(mvcHost.IsPartialView) {
 #>
 
 @{
-    ViewBag.Title = "<#= modelGentelName #> - <#= mvcHost.ViewName #>";
+    ViewBag.Title = "<#= mvcHost.ViewName#>";
 <#
 if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 #>
@@ -65,7 +36,7 @@ if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 #>
 }
 
-<h2>@ViewBag.Title</h2>
+<h2><#= mvcHost.ViewName#></h2>
 
 <#
 } else {
@@ -101,93 +72,63 @@ if (mvcHost.ReferenceScriptLibraries) {
     }
 }
 #>
-
-<# // custom code by auk to make it better
-List<string> Fields = new List<string>(20);
-List<string> ForeignFields = new List<string>(20);
-List<string> ForeignFieldsAssociates = new List<string>(20);
-List<string> CheckBoxes = new List<string>(20);
-var typeCheckbox = typeof(bool);
-var typeCheckbox2 = typeof(Boolean);
-string displayFirstProperty = "";
-int idexk = 0;
-string Primarykey = "";
-foreach (ModelProperty property in GetModelProperties(mvcHost.ViewDataType)) {
-	if(property.IsPrimaryKey){
-		Primarykey = property.Name; 		
-	}
-    if (!property.IsPrimaryKey && !property.IsReadOnly && property.Scaffold) {
-		var currentType = property.UnderlyingType;
-		var isCheckBox = currentType.Equals(typeCheckbox) || currentType.Equals(typeCheckbox2);
-		if(!property.IsForeignKey && !(isCheckBox)){
-			// only field
-			Fields.Add(property.Name);
-			if(idexk==0){
-				displayFirstProperty = property.Name;
-			}
-		} else if(!property.IsForeignKey && isCheckBox){
-			// only checkboxes
-			CheckBoxes.Add(property.Name);		
-        } else if(property.IsForeignKey && !isCheckBox){
-			// relation
-			ForeignFields.Add(property.Name);
-			ForeignFieldsAssociates.Add(property.AssociationName);
-		}
-		idexk++;
-    }
-
-}
-#>
-
-<div>
-    @Html.ActionLink("Back", "", null , new { @Class = "back-button", data_icon="arrow-l", data_rel="back" , data_role="button"} )
-</div>
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
-    <fieldset class="edit-form" data-role="collapsible"  data-role="controlgroup" data-theme="c" data-content-theme="c" data-collapsed="false">
-        <legend>Editing @Model.<#= displayFirstProperty #></legend>
-		@Html.HiddenFor(model => model.<#= Primarykey #>)
-<# int  length = ForeignFieldsAssociates.Count; 
-if(length > 0) { #>
-		<span class="linked-fields" @* data-role="controlgroup" *@>
-<# for (int i = 0; i < length; i++) { #>
-<# string propertyName = ForeignFields[i], assoc = ForeignFieldsAssociates[i]; #>
-			@Html.LabelFor(model => model.<#= propertyName #>, "<#= assoc #>")
-			@Html.DropDownList("<#= propertyName #>", null , new { title="Please select <#= GetGentleName(propertyName) #>."})
-<# } /* for */ #>
-		</span>
-<# } /* if */ #>
+    <fieldset>
+        <legend><#= mvcHost.ViewDataType.Name #></legend>
 
-<# length = Fields.Count;
-if(length > 0) { #>
-		<span class = "editor-fields">
-<# for (int i = 0; i < length; i++) { #>
-<# string propertyName = Fields[i]; #>
-			@Html.LabelFor(model => model.<#= propertyName #>)
-			@Html.EditorFor(model => model.<#= propertyName #>)
-<# } /* for */ #>
-		</span>
-<# } /* if */ #>
+<#
+foreach (ModelProperty property in GetModelProperties(mvcHost.ViewDataType)) {
+    if (property.Scaffold) {
+        if (property.IsPrimaryKey) {
+#>
+        @Html.HiddenFor(model => model.<#= property.Name #>)
 
-<# length = CheckBoxes.Count;
-if(length > 0) { #>
-		<div class = "editor-checkboxes" data-role="controlgroup">
-<# for (int i = 0; i < length; i++) { #>
-<# string propertyName = CheckBoxes[i]; #>
-			@Html.LabelFor(model => model.<#= propertyName #>)
-			@Html.EditorFor(model => model.<#= propertyName #>)
-<# } /* for */ #>
-		</div>
-<# } /* if */ #>
+<#
+        } else if (!property.IsReadOnly) {
+#>
+        <div class="editor-label">
+<#
+            if (property.IsForeignKey) {
+#>
+            @Html.LabelFor(model => model.<#= property.Name #>, "<#= property.AssociationName #>")
+<#
+            } else {
+#>
+            @Html.LabelFor(model => model.<#= property.Name #>)
+<#
+            }
+#>
+        </div>
+        <div class="editor-field">
+<#
+            if (property.IsForeignKey) {
+#>
+            @Html.DropDownList("<#= property.Name #>", String.Empty)
+<#
+            } else {
+#>
+            @Html.EditorFor(model => model.<#= property.Name #>)
+<#
+            }
+#>
+            @Html.ValidationMessageFor(model => model.<#= property.Name #>)
+        </div>
+
+<#
+        }
+    }
+}
+#>
         <p>
-            <input type="submit" value="Save Changes" data-role="button" title="Create <#= modelGentelName #>" data-icon="check" />
+            <input type="submit" value="Save" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back", "", null , new { @Class = "back-button", data_icon="arrow-l", data_rel="back" , data_role="button"} )
+    @Html.ActionLink("Back to List", "Index")
 </div>
 <#
 if(mvcHost.IsContentPage && mvcHost.ReferenceScriptLibraries) {
@@ -363,28 +304,5 @@ MvcTextTemplateHost MvcTemplateHost {
     get {
         return (MvcTextTemplateHost)Host;
     }
-}
-#>
-<#+
-string GetGentleName(string n){
-	int startingIndex = 0;
-	string modelGentelName ="";
-	for (int i = startingIndex; i < n.Length ; i++)
-	{
-		char c =  n[i];
-		bool IscLower = ((int)c >= (int)'a' && (int)c <= (int)'z') ? true : false;
-	
-		char cU = (IscLower) ? (char)((int)c - (int)'a' + (int)'A') : c; 
-		if(i == startingIndex){
-			modelGentelName += n[i]; 		
-		} else {
-			if(i > 1 && IscLower == false){
-				modelGentelName += " " + cU;
-			} else {
-				modelGentelName += c;				
-			} 
-		}
-	}	
-	return modelGentelName;	
 }
 #>

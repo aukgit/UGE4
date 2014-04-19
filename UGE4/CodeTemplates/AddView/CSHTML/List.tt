@@ -14,37 +14,8 @@
 <#@ import namespace="Microsoft.VisualStudio.Web.Mvc.Scaffolding.BuiltIn" #>
 <#
 MvcTextTemplateHost mvcHost = MvcTemplateHost;
-var modelName = mvcHost.ViewDataTypeName;
-var modelGentelName = "";
-var modelNameCss = "";
-int startingIndex = 0;
-for (int i = modelName.Length -1 ; i >= 0 ; i--)
-{
-	char c =  modelName[i];
-	if (c == '.') {
-		startingIndex = i;
-		break;		
-    }
-}
-for (int i = startingIndex + 1 ; i < modelName.Length ; i++)
-{
-	char c =  modelName[i];
-	bool IscLower = ((int)c >= (int)'a' && (int)c <= (int)'z') ? true : false;
-	
-	char cU = (IscLower) ? (char)((int)c - (int)'a' + (int)'A') : c; 
-	if(i == startingIndex + 1){
-		modelGentelName += modelName[i]; 		
-	} else {
-		if(i > 1 && IscLower == false){
-			modelGentelName += " " + cU;
-        } else {
-			modelGentelName += c;				
-		} 
-    }
-}
-modelNameCss = modelGentelName.Replace(' ','-');
 #>
-@model IList<#= "<" + mvcHost.ViewDataTypeName + ">" #>
+@model IEnumerable<#= "<" + mvcHost.ViewDataTypeName + ">" #>
 <#
 // The following chained if-statement outputs the file header code and markup for a partial view, a content page, or a regular view.
 if(mvcHost.IsPartialView) {
@@ -53,8 +24,9 @@ if(mvcHost.IsPartialView) {
 <#
 } else if(mvcHost.IsContentPage) {
 #>
+
 @{
-    ViewBag.Title = "<#= modelGentelName #>";
+    ViewBag.Title = "<#= mvcHost.ViewName#>";
 <#
 if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 #>
@@ -63,7 +35,9 @@ if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 }
 #>
 }
-<h2>@ViewBag.Title</h2>
+
+<h2><#= mvcHost.ViewName#></h2>
+
 <#
 } else {
 #>
@@ -84,60 +58,62 @@ if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
     PushIndent("    ");
 }
 #>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-hover">
+    <tr>
 <#
-var displayField = "";
 List<ModelProperty> properties = GetModelProperties(mvcHost.ViewDataType);
-foreach (var property in properties)
-{
-	if (!property.IsPrimaryKey && property.Scaffold) {
-		displayField = 	property.Name;
-		break;
-	}
+foreach (ModelProperty property in properties) {
+    if (!property.IsPrimaryKey && property.Scaffold) {
+#>
+        <th>
+            @Html.DisplayNameFor(model => model.<#= property.ValueExpression #>)
+        </th>
+<#
+    }
 }
 #>
-<p class="create-button-p"> 
-    <a href='@Url.Action("Create")' class="create-button" data-icon="plus" data-role="button">Create <#= modelGentelName #></a> 
-</p>
-<ul data-role="listview" @*data-autodividers="true" data-filter="true"*@ data-filter-placeholder="Search @ViewBag.Title...." data-inset="true" data-split-icon="edit" data-split-theme="b">
-	<li data-role="list-divider"><#= modelGentelName #><span class="ui-li-count">@Model.Count()</span></li>
-@foreach (var item in Model) {
-<#
-string pkName = GetPrimaryKeyName(mvcHost.ViewDataType);
-int yui1 = 0, intxNextCounter = 0;
+        <th></th>
+    </tr>
 
-foreach (ModelProperty property in properties) {
-if (!property.IsPrimaryKey && property.Scaffold && !property.IsForeignKey) {
-#>
-<# if(intxNextCounter > 2){ break; } /* Not Printing More than 2 fields*/ #>
-<# if(yui1 == 0 && pkName != null){ #>
-	<li>
-		<a href='@Url.Action("Details", new { id = item.<#= pkName #>})' data-rel="dialog" data-transition="pop"  data-close-btn="right" title="Details of @item.<#= displayField #>">
-			<h2 class="display-field">
-				@Html.LabelFor(modelItem => <#= property.ItemValueExpression #>) : @Html.DisplayFor(modelItem => <#= property.ItemValueExpression #>)
-			</h2>
-<# } else { #>
-			<p>@Html.LabelFor(modelItem => <#= property.ItemValueExpression #>) : @Html.DisplayFor(modelItem => <#= property.ItemValueExpression #>)</p>
-<# intxNextCounter++; #>
-<# } #>
-<# yui1++; #>
+@foreach (var item in Model) {
+    <tr>
 <#
-} // for loop
-} // if else is primary
+foreach (ModelProperty property in properties) {
+    if (!property.IsPrimaryKey && property.Scaffold) {
+#>
+        <td>
+            @Html.DisplayFor(modelItem => <#= property.ItemValueExpression #>)
+        </td>
+<#
+    }
+}
+
+string pkName = GetPrimaryKeyName(mvcHost.ViewDataType);
 if (pkName != null) {
 #>
-		</a>
-		@Html.ActionLink("Edit" , "Edit", new { id=item.<#= pkName #> } , new { @class="edit-link"})		
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.<#= pkName #> }) |
+            @Html.ActionLink("Details", "Details", new { id=item.<#= pkName #> }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.<#= pkName #> })
+        </td>
 <#
 } else {
 #>
-		</a>
-		@Html.ActionLink("Edit" , "Edit", new { /* id=item.<#= pkName #> */  } , new { @class="edit-link" })
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
 <#
-} //if else pkname
-#>
-	</li>
 }
-</ul>
+#>
+    </tr>
+}
+
+</table>
 <#
 // The following code closes the asp:Content tag used in the case of a master page and the body and html tags in the case of a regular view page
 #>

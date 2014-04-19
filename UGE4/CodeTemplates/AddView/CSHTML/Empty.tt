@@ -2,35 +2,6 @@
 <#@ output extension=".cshtml" #>
 <#
 MvcTextTemplateHost mvcHost = (MvcTextTemplateHost)(Host);
-var modelName = mvcHost.ViewDataTypeName;
-var modelGentelName = "";
-int startingIndex = 0;
-for (int i = modelName.Length -1 ; i >= 0 ; i--)
-{
-	char c =  modelName[i];
-	if (c == '.') {
-		startingIndex = i;
-		break;		
-    }
-}
-for (int i = startingIndex + 1 ; i < modelName.Length ; i++)
-{
-	char c =  modelName[i];
-	bool IscLower = ((int)c >= (int)'a' && (int)c <= (int)'z') ? true : false;
-	
-	char cU = (IscLower) ? (char)((int)c - (int)'a' + (int)'A') : c; 
-	if(i == startingIndex + 1){
-		modelGentelName += modelName[i]; 		
-	} else {
-		if(i > 1 && IscLower == false){
-			modelGentelName += " " + cU;
-        } else {
-			modelGentelName += c;				
-		} 
-    }
-}
-
-
 if(!String.IsNullOrEmpty(mvcHost.ViewDataTypeName)) {
 #>
 @model <#= mvcHost.ViewDataTypeName #>
@@ -44,9 +15,8 @@ if(mvcHost.IsPartialView) {
 <#
 } else if(mvcHost.IsContentPage) {
 #>
-
 @{
-    ViewBag.Title = "<#= modelGentelName #> - ";
+    ViewBag.Title = "<#= mvcHost.ViewName#>";
 <#
 if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 #>
@@ -55,8 +25,6 @@ if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 }
 #>
 }
-
-<h2>@ViewBag.Title</h2>
 
 <h2><#= mvcHost.ViewName#></h2>
 <#
